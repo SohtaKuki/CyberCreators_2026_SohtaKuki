@@ -10,7 +10,7 @@
 風を駆使して様々な困難を乗り越えて行け！
 
 ◆起動方法
-実行ファイル/Elemental_Exeus Ver.Master 1.0.0/Elemental_Exeus.exeをダブルクリックすると起動します。
+実行ファイル/Elemental_Exeus.exeをダブルクリックすると起動します。
 
 ◆基本操作
 
