@@ -1,0 +1,620 @@
+#==============================================================================
+#
+# 「Frozen Frontier」ステージ配置情報ファイル [loadstage000.txt]
+# Author : Sohta Kuki
+#
+#==============================================================================
+SCRIPT			# この行は消さないでください！
+
+#---------------------------------------------------------------------------------
+ステージの制限時間
+#---------------------------------------------------------------------------------
+TIMERSET = 0
+#---------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# オブジェクト配置情報
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# オブジェクト各ID (OBJ_TYPE)
+#
+# 7:床生成 ※(これがないと進行できません)
+
+
+# 0:プレイヤー初期位置
+# 1:敵[0:無移動(下) 1:右移動 2:上下移動 3:左移動]
+# 2:通常ブロック
+# 3:破壊可能ブロック
+# 4:アイテム[0:移動速度 1:充填式火炎弾 即発射 2:タイマー追加 3:医療キット]
+# 5:壁ブロック[0:横長ブロック 1:縦長ブロック 2:横長ブロック (短) 3:縦長ブロック (短)]
+# 6:ゴールマーカー
+# 8:移動床ブロック
+#------------------------------------------------------------------------------
+
+STAGESET
+
+
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 0.0 0.0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 7					#床ブロック 
+		POS = 0.0 -200.0 -600.0
+		SIZE = 2500.0 0.0 2450.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	
+	OBJECTSET
+		OBJ_TYPE = 7					#床ブロック 
+		POS = 0.0 -400.0 3000.0
+		SIZE = 5000.0 0.0 4950.0
+		OBJ_TYPE2 = 1
+	END_OBJECTSET
+	
+
+
+	OBJECTSET
+		OBJ_TYPE = 0					#プレイヤー初期位置
+		POS = 0.0 40.0 -0.0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 0.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 100.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 200.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 300.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 400.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+		OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 500.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 600.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 400.0 250.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+		OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 500.0 250.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 600.0 250.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 600.0 330.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 600.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 700.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 800.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 800.0 490.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 900.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 900.0 490.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1000.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 4					#アイテム 
+		POS = 1000.0 450.0 0.0	
+		OBJ_TYPE2 = 3
+	END_OBJECTSET
+	
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1100.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1200.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1300.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1500.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1600.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1600.0 490.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1700.0 410.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1700.0 490.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1700.0 570.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1800.0 570.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1900.0 570.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2000.0 570.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2100.0 570.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2200.0 570.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2200.0 650.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2400.0 650.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2400.0 570.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2500.0 570.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2600.0 570.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 700.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 880.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 880.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 950.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 950.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+
+	
+	OBJECTSET
+		OBJ_TYPE = 8					#移動床ブロック 
+		POS = 1250.0 90.0 0.0
+		OBJ_TYPE2 = 1
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1350.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1350.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1450.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1450.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1550.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1550.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1550.0 130.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+
+	
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1650.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1650.0 130.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1650.0 -16.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+
+
+		OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1750.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1750.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1750.0 130.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1850.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1850.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1850.0 130.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1950.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1950.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 1950.0 130.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2050.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2050.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2050.0 130.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2050.0 210.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 8					#移動床ブロック 
+		POS = 2280.0 200.0 0.0
+		OBJ_TYPE2 = 1
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 8					#移動床ブロック 
+		POS = 2330.0 200.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+		OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2550.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2550.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2550.0 130.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2550.0 210.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2650.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2650.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2650.0 130.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2650.0 210.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2750.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2750.0 60.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2750.0 130.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = 2750.0 210.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 6					#ゴールオブジェクト
+		POS = 2700.0 450.0.0 0.0	
+		OBJ_TYPE2 = 0	
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 1					#敵
+		POS = 400.0 30.0 0.0
+		OBJ_TYPE2 = 0	
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 11					#敵
+		POS = 700.0 180.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 1					#敵
+		POS = 707.0 435.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 1					#敵
+		POS = 1307.0 435.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 1					#敵
+		POS = 1900.0 596.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 1					#敵
+		POS = 1453.0 86.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 1					#敵
+		POS = 1755.0 157.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 11					#敵
+		POS = 1195.0 500.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 11					#敵
+		POS = 2298.0 750.0 0.0
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+
+END_STAGESET # この行は消さないでください！

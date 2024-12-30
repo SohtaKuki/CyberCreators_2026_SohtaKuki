@@ -1,0 +1,12 @@
+﻿  3dslashwind.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(16,1): warning C4005: 'MAX_KEYSET': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(16): message : 'MAX_KEYSET' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy_air.h(16,1): warning C4005: 'MAX_KEYSET': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(16): message : 'MAX_KEYSET' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy_air.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  Project52.vcxproj -> C:\Users\student\Desktop\ProjectC++_phase2\x64\Debug\ProjectC++_phase2.exe
