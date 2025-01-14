@@ -1,0 +1,17 @@
+﻿  3dbullet.cpp
+  3dchargebullet.cpp
+  3denemy.cpp
+  3dplayer.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3dbuffui.h(14,1): warning C4005: 'NUM_ICON': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dchargeshotui.h(14): message : 'NUM_ICON' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\endcallui.h(14,1): warning C4005: 'NUM_ICON': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dbuffui.h(14): message : 'NUM_ICON' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.cpp(238,58): warning C4244: '=': 'ULONGLONG' から 'DWORD' への変換です。データが失われる可能性があります。
+  floor.cpp
+  timer.cpp
+  コード生成しています。
+  6 of 624 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  コード生成が終了しました。
+  Project52.vcxproj -> C:\Users\student\Desktop\ProjectC++_phase2\Release\ProjectC++_phase2.exe
