@@ -88,7 +88,7 @@ public:
 	static HRESULT Load();
 	static void Unload();
 	void LoadPlayerData();
-	void EnemyDamage();
+	void EnemyDamage(int nDamage);
 	//void OldPlayerPos() { m_nPos = m_nOld3DPlayerPos; }
 	//void OldPlayerPosZ() { m_nPos.z = m_nOld3DPlayerPos.z; }
 	D3DXVECTOR3& GetEnemyPos() { return m_nOld3DEnemyPos; }//座標の取得
@@ -123,8 +123,10 @@ private:
 	int m_nType; //敵タイプ
 	int m_nMotionCnt; //モーション数
 	int m_nFrameCnt; //モーションのフレーム数
+	int m_nEnemyDmgColorTimer; //ダメージ時のマテリアルを変えている時間
 	static int m_nMaxEnemy; //敵の最大数
 	bool MotionUse; //モーションを使用しているか
+	bool m_bEnemyDMGState; //ダメージを受けているか
 protected:
 	D3DXVECTOR3 m_n3DEnemyMove;
 	D3DXVECTOR3 m_rot;

@@ -193,7 +193,7 @@ void CStartCallUI::Update()
 
         for (int nCntBG = 0; nCntBG < NUM_ICON; nCntBG++)
         {
-            m_nPos[2].y = 283.0f;
+            m_nPos[2].y = 300.0f;
             m_nSize[2].x = 400.0f;
             m_nSize[2].y = 10.0f;
 

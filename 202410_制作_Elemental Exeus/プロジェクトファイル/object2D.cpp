@@ -111,7 +111,12 @@ void CObject2D::BindTexture(LPDIRECT3DTEXTURE9 pTex)
 //======================
 void CObject2D::Update()
 {
+	int nFadeState = CFade::GetFadeState();
 
+	if (nFadeState == CFade::FADE_OUT)
+	{
+		CObject2D::Uninit();
+	}
 }
 
 //======================

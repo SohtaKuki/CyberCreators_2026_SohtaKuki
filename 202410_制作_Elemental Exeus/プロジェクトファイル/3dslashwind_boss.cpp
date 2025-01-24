@@ -86,70 +86,72 @@ void C3dslashwindBoss::Uninit()
 //======================
 void C3dslashwindBoss::Update()
 {
-    D3DXVECTOR3 Pos = CObject3D::GetPos();
-    D3DXVECTOR3 PlayerRot = C3dplayer::GetPlayerRot();
-
-
-    SetPos(Pos);
-
-    //自然消滅の処理
-    if (m_bDisplay == true)
+    //ゲームが進行可能の時のみ通す
+    if (CScene::GetUpdateStat() == true)
     {
-        m_nTimer++;
+        D3DXVECTOR3 Pos = CObject3D::GetPos();
+        D3DXVECTOR3 PlayerRot = C3dplayer::GetPlayerRot();
 
-        m_rot.y += 0.3f;
+        SetPos(Pos);
 
-        if (m_nTimer == SLASHWINDBOSS_TIMER)
+        //自然消滅の処理
+        if (m_bDisplay == true)
         {
-            m_bDisplay = false;
-            Uninit();
+            m_nTimer++;
+
+            m_rot.y += 0.3f;
+
+            if (m_nTimer == SLASHWINDBOSS_TIMER)
+            {
+                m_bDisplay = false;
+                Uninit();
+            }
+
         }
 
-    }
-
-    //コンボ攻撃の前回出した竜巻の削除
-    if (m_bComboDest == true)
-    {
-        m_bDisplay = false;
-
-        m_bComboDest = false;
-    }
-
-    //弾と敵の当たり判定
-    for (int nCntObj = 0; nCntObj < C3dslashwindBoss::MAX_SLASHWINDBOSS; nCntObj++)
-    {
-        CObject* pObj = CObject::GetObj(3, nCntObj);
-
-        if (pObj != nullptr)
+        //コンボ攻撃の前回出した竜巻の削除
+        if (m_bComboDest == true)
         {
-            CObject::TYPE type = pObj->GetType();
+            m_bDisplay = false;
 
-            C3dplayer* p3dplayer = (C3dplayer*)pObj;
+            m_bComboDest = false;
+        }
 
-            D3DXVECTOR3 PlayerPos = p3dplayer->GetPos();
+        //弾と敵の当たり判定
+        for (int nCntObj = 0; nCntObj < C3dslashwindBoss::MAX_SLASHWINDBOSS; nCntObj++)
+        {
+            CObject* pObj = CObject::GetObj(3, nCntObj);
 
-            //敵の場合
-            if (type == CObject::TYPE::PLAYER)
+            if (pObj != nullptr)
             {
-                if (Pos.x >= PlayerPos.x - 75
-                    && Pos.x <= PlayerPos.x + 75
-                    && Pos.y >= PlayerPos.y - 100
-                    && Pos.y <= PlayerPos.y + 100
-                    && Pos.z >= PlayerPos.z - 10
-                    && Pos.z <= PlayerPos.z + 10)
+                CObject::TYPE type = pObj->GetType();
+
+                C3dplayer* p3dplayer = (C3dplayer*)pObj;
+
+                D3DXVECTOR3 PlayerPos = p3dplayer->GetPos();
+
+                //敵の場合
+                if (type == CObject::TYPE::PLAYER)
                 {
-                    m_bDisplay = false;
-                    p3dplayer->PlayerDamage(10);
-                    C3dhiteffect::Create(CObject3D::GetPos(), D3DXVECTOR3(70.0f, 70.0f, 0.0f), m_rot);
-                    CCamera::SetShake((2), 7.0f);
-                    m_nTimer = 0;
-                    C3dslashwindBoss::Uninit();
-                    return;
+                    if (Pos.x >= PlayerPos.x - 75
+                        && Pos.x <= PlayerPos.x + 75
+                        && Pos.y >= PlayerPos.y - 100
+                        && Pos.y <= PlayerPos.y + 100
+                        && Pos.z >= PlayerPos.z - 10
+                        && Pos.z <= PlayerPos.z + 10)
+                    {
+                        m_nTimer = 0;
+                        m_bDisplay = false;
+                        p3dplayer->PlayerDamage(10);
+                        C3dhiteffect::Create(CObject3D::GetPos(), D3DXVECTOR3(70.0f, 70.0f, 0.0f), m_rot);
+                        CCamera::SetShake((2), 7.0f);
+                        C3dslashwindBoss::Uninit();
+                        return;
+                    }
                 }
             }
         }
     }
-
 
     //フェードの状態を取得
     int nFadeState = CFade::GetFadeState();

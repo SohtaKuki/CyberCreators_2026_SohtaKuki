@@ -100,6 +100,7 @@ private:
 	bool m_bMoveSwitchBossL;
 	bool m_bMoveBossSwitchLD;
 	bool m_bMoveBossSwitchRD;
+	bool m_bMoveSwitchUP;
 	int m_nATKType;
 	int m_nSpawnAtkTimer;
 	int m_nHiddenTimer;

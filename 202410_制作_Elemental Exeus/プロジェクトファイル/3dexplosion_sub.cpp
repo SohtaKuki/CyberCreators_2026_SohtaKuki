@@ -113,7 +113,6 @@ void C3dexplosionsub::Update()
 		//頂点バッファをロックし頂点情報時へのポインタを取得
 		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
-
 		m_nLife--;
 
 		//弾寿命が0の場合

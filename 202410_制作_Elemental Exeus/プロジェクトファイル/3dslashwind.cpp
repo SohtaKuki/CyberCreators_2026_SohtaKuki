@@ -166,7 +166,7 @@ void C3dslashwind::Update()
                     && Pos.z <= EnemyPos.z + 10)
                 {
                     m_bDisplay = false;
-                    p3denemy->EnemyDamage();
+                    p3denemy->EnemyDamage(1);
                     C3dhiteffect::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y + 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(90.0f, 90.0f, 0.0f), m_rot);
                     Uninit();
                     return;
@@ -227,12 +227,12 @@ void C3dslashwind::Update()
                 if (Pos.x >= BossPos.x - 75
                     && Pos.x <= BossPos.x + 75
                     && Pos.y >= BossPos.y - 25
-                    && Pos.y <= BossPos.y + 75
+                    && Pos.y <= BossPos.y + 155
                     && Pos.z >= BossPos.z - 10
                     && Pos.z <= BossPos.z + 10)
                 {
                     m_bDisplay = false;
-                    p3dboss->BossDamage(10);
+                    p3dboss->BossDamage(5);
                     C3dhiteffect::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y + 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(90.0f, 90.0f, 0.0f), m_rot);
                     Uninit();
                     return;
@@ -264,14 +264,11 @@ void C3dslashwind::Update()
                     && Pos.z >= TornadoPos.z - 10
                     && Pos.z <= TornadoPos.z + 10)
                 {
-
-
                     //プレイヤーが右を向いている時
                     if (PlayerRot.y >= -1.6f && PlayerRot.y <= -0.1f)
                     {
                         CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_TORNADO_SHOT);
-                        p3dtornado->TornadoAtk(0);                    
-
+                        p3dtornado->TornadoAtk(0);
                     }
 
                     //プレイヤーが左を向いている時
@@ -279,10 +276,7 @@ void C3dslashwind::Update()
                     {
                         CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_TORNADO_SHOT);
                         p3dtornado->TornadoAtk(1);
-
                     }
-
-
                 }
             }
         }

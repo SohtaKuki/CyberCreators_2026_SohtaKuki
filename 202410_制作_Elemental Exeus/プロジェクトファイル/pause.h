@@ -24,7 +24,7 @@ public:
 	}PAUSE_SELECT;
 
 	//プロトタイプ宣言
-	CPauseSelect(int nPriority = 71);
+	CPauseSelect(int nPriority = 90);
 	~CPauseSelect();
 	HRESULT Init() override;
 	void Uninit(void) override;

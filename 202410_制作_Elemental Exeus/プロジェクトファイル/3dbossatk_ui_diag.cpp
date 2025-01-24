@@ -110,71 +110,75 @@ void C3dBossATKUIDiag::Uninit()
 //======================
 void C3dBossATKUIDiag::Update()
 {
-	//頂点情報のポインタ
-	VERTEX_3D* pVtx;
-
-	//頂点バッファをロックし頂点情報時へのポインタを取得
-	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
-
-	for (int nCnt = 0; nCnt < NUM_UI; nCnt++)
+	if (CScene::GetUpdateStat() == true)
 	{
-		//頂点座標の設定
-		pVtx[0].pos = D3DXVECTOR3(m_nPos[nCnt].x - m_nSize[nCnt].x, m_nPos[nCnt].y + m_nSize[nCnt].y, m_nPos[nCnt].z);
-		pVtx[1].pos = D3DXVECTOR3(m_nPos[nCnt].x + m_nSize[nCnt].x * 2, m_nPos[nCnt].y + m_nSize[nCnt].y, m_nPos[nCnt].z);
-		pVtx[2].pos = D3DXVECTOR3(m_nPos[nCnt].x - m_nSize[nCnt].x, m_nPos[nCnt].y - m_nSize[nCnt].y, m_nPos[nCnt].z);
-		pVtx[3].pos = D3DXVECTOR3(m_nPos[nCnt].x + m_nSize[nCnt].x * 2, m_nPos[nCnt].y - m_nSize[nCnt].y, m_nPos[nCnt].z);
+		//頂点情報のポインタ
+		VERTEX_3D* pVtx;
 
-		//法線ベクトルの設定
-		pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		pVtx[1].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-
-		//頂点カラーの初期設定
-		pVtx[0].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-		pVtx[1].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-		pVtx[2].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-		pVtx[3].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-
-		//テクスチャ座標の初期設定
-		pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-		pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
-		pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
-		pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
-
-		pVtx += 4;
-	}
-
-	if (m_nType == C3dBossATKUIDiag::ATKUI_DISPLAY::BSUI_R_DIAGATK)
-	{
-		m_nPos[m_nType].x = 110.0f;
-		m_nPos[m_nType].y = 130.0f;
-
-		m_nSize[m_nType].x = 400.0f;
-		m_nSize[m_nType].y = 320.0f;
-	}
-
-	if (m_nType == C3dBossATKUIDiag::ATKUI_DISPLAY::BSUI_L_DIAGATK)
-	{
-		m_nPos[m_nType].x = 0.0f;
-		m_nPos[m_nType].y = 130.0f;
-
-		m_nSize[m_nType].x = 400.0f;
-		m_nSize[m_nType].y = 320.0f;
-	}
+		//頂点バッファをロックし頂点情報時へのポインタを取得
+		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 
-	//頂点バッファをアンロック
-	m_pVtxBuff->Unlock();
+		for (int nCnt = 0; nCnt < NUM_UI; nCnt++)
+		{
+			//頂点座標の設定
+			pVtx[0].pos = D3DXVECTOR3(m_nPos[nCnt].x - m_nSize[nCnt].x, m_nPos[nCnt].y + m_nSize[nCnt].y, m_nPos[nCnt].z);
+			pVtx[1].pos = D3DXVECTOR3(m_nPos[nCnt].x + m_nSize[nCnt].x * 2, m_nPos[nCnt].y + m_nSize[nCnt].y, m_nPos[nCnt].z);
+			pVtx[2].pos = D3DXVECTOR3(m_nPos[nCnt].x - m_nSize[nCnt].x, m_nPos[nCnt].y - m_nSize[nCnt].y, m_nPos[nCnt].z);
+			pVtx[3].pos = D3DXVECTOR3(m_nPos[nCnt].x + m_nSize[nCnt].x * 2, m_nPos[nCnt].y - m_nSize[nCnt].y, m_nPos[nCnt].z);
 
-	//フェードの状態を取得
-	int nFadeState = CFade::GetFadeState();
+			//法線ベクトルの設定
+			pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+			pVtx[1].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+			pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+			pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
-	//フェードアウトになった場合、終了処理に移行
-	if (nFadeState == CFade::FADE_OUT)
-	{
-		C3dBossATKUIDiag::Uninit();
+			//頂点カラーの初期設定
+			pVtx[0].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+			pVtx[1].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+			pVtx[2].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+			pVtx[3].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+			//テクスチャ座標の初期設定
+			pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
+			pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
+			pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
+			pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
+
+			pVtx += 4;
+		}
+
+		if (m_nType == C3dBossATKUIDiag::ATKUI_DISPLAY::BSUI_R_DIAGATK)
+		{
+			m_nPos[m_nType].x = 110.0f;
+			m_nPos[m_nType].y = 130.0f;
+
+			m_nSize[m_nType].x = 400.0f;
+			m_nSize[m_nType].y = 320.0f;
+		}
+
+		if (m_nType == C3dBossATKUIDiag::ATKUI_DISPLAY::BSUI_L_DIAGATK)
+		{
+			m_nPos[m_nType].x = 0.0f;
+			m_nPos[m_nType].y = 130.0f;
+
+			m_nSize[m_nType].x = 400.0f;
+			m_nSize[m_nType].y = 320.0f;
+		}
+
+
+
+		//頂点バッファをアンロック
+		m_pVtxBuff->Unlock();
+
+		//フェードの状態を取得
+		int nFadeState = CFade::GetFadeState();
+
+		//フェードアウトになった場合、終了処理に移行
+		if (nFadeState == CFade::FADE_OUT)
+		{
+			C3dBossATKUIDiag::Uninit();
+		}
 	}
 }
 

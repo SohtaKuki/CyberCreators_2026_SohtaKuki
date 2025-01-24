@@ -94,7 +94,7 @@ public:
 	D3DXVECTOR3& GetEnemyPos() { return m_nOld3DEnemyPos; }//座標の取得
 	static unsigned const int MAX_ENEMYAIR = 300;	//オブジェクト最大数
 	static const int SHOT_INTERVAL = 120;
-	static const int MOVE_INTERVAL = 90;
+	static const int MOVE_INTERVAL = 100;
 	ENEMYAIRMOTION Motion;
 	void SetEnemyMotion(ENEMYAIRMOTION motion);
 	bool Collision3DEnemyAir(D3DXVECTOR3* pPos, D3DXVECTOR3* pPosOld, D3DXVECTOR3* pMove, float fWidth, float fBlockHeight);
@@ -122,7 +122,9 @@ private:
 	int m_nType; //敵タイプ
 	int m_nMotionCnt; //モーション数
 	int m_nFrameCnt; //モーションのフレーム数
+	int m_nAirEnemyDmgColorTimer; //ダメージ時のマテリアルを変えている時間
 	bool MotionUse; //モーションを使用しているか
+	bool m_bAirEnemyDMGState;
 protected:
 	D3DXVECTOR3 m_n3DEnemyMove;
 	D3DXVECTOR3 m_rot;

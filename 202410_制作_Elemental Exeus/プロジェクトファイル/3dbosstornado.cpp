@@ -184,6 +184,11 @@ void C3dbosstornado::Update()
             }
         }
 
+        if (m_nDirection == 4)
+        {
+            m_bMoveSwitchUP = true;
+        }
+
         //ƒvƒŒƒCƒ„[‚ª‰E‚ðŒü‚¢‚Ä‚¢‚éŽž
         if (m_bMoveSwitch == true)
         {
@@ -209,6 +214,12 @@ void C3dbosstornado::Update()
         {
             m_nMove.x += 1.0f;
             m_nMove.y -= 0.8f;
+        }
+
+        //—³Šª‚ªã‚É”ò‚Î‚·ê‡
+        if (m_bMoveSwitchUP == true)
+        {
+            m_nMove.y += 1.0f;
         }
 
         //’e‚Æ“G‚Ì“–‚½‚è”»’è
@@ -256,12 +267,12 @@ void C3dbosstornado::Update()
                 D3DXVECTOR3 PlayerPos = p3dplayer->GetPos();
 
                 //“G‚Ìê‡
-                if (type == CObject::TYPE::PLAYER/* && C3dbosstornado::m_nATKType == BOSSTORNADO_STATE::BOSSTORNADO_BOSS_ATK*/)
+                if (type == CObject::TYPE::PLAYER)
                 {
                     if (Pos.x >= PlayerPos.x - 75
                         && Pos.x <= PlayerPos.x + 75
                         && Pos.y >= PlayerPos.y - 100
-                        && Pos.y <= PlayerPos.y + 100
+                        && Pos.y <= PlayerPos.y + 60
                         && Pos.z >= PlayerPos.z - 10
                         && Pos.z <= PlayerPos.z + 10)
                     {
@@ -404,6 +415,12 @@ void C3dbosstornado::BosstornadoAtk(int nDirection)
     if (nDirection == 3)
     {
         m_bMoveBossSwitchRD = true;
+    }
+
+    if (nDirection == 4)
+    {
+        m_bMoveSwitchUP = true;
+        C3dbosstornado::m_nATKType = BOSSTORNADO_STATE::BOSSTORNADO_ATK;
     }
 }
 

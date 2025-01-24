@@ -14,7 +14,7 @@
 class CFade
 {
 public:
-	static const int FADE_TIME = 90;
+	static const int FADE_TIME = 150;
 	static const int FADE_SPEED = 15;
 
 	//フェード処理の列挙型

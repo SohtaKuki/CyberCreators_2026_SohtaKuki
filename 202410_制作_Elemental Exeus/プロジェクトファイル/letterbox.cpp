@@ -9,7 +9,7 @@
 #include "3dboss.h"
 #include "bosscallui.h"
 
-bool CLetterbox::m_bStartComplete = false;
+bool CLetterbox::m_bStartComplete {};
 bool CLetterbox::m_bStartCallFlag = false;
 bool CLetterbox::m_bAnimationEnd = false;
 //============================
@@ -153,6 +153,7 @@ void CLetterbox::Update()
         m_bUIUse[1] = true;
         CManager::GetSound()->Stop(CSound::SOUND_LABEL_SE_ENTRY_WARNING);
         CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_BOSS_ENTRY_MOVE);
+        m_bStartComplete = true;
     }
 
     if (CBossCallUI::GetEndStat() == true && m_bUIUse[0] == true)
@@ -190,6 +191,7 @@ void CLetterbox::Update()
             m_bUIUse[0] = false;
             m_bUIUse[1] = false;
             m_bAnimationEnd = true;
+            m_bStartComplete = false;
         }
     }
 

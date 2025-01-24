@@ -78,30 +78,35 @@ void CBossui::Uninit()
 // 更新処理
 //======================
 void CBossui::Update()
-{
-	VERTEX_2D* pVtx;
-
-
-	//頂点バッファをロックし、頂点情報へのポインタを取得
-	CObject2D::GetBuff()->Lock(0, 0, (void**)&pVtx, 0);
-
-	if (C3dboss::GetBossEntry() == true)
+{   
+	//ゲームが進行可能の時のみ通す
+	if (CScene::GetUpdateStat() == true)
 	{
-		pVtx[0].pos = D3DXVECTOR3(m_nPos.x - m_nSize.x, m_nPos.y, 0.0f);
-		pVtx[1].pos = D3DXVECTOR3(m_nPos.x + m_nSize.x, m_nPos.y, 0.0f);
-		pVtx[2].pos = D3DXVECTOR3(m_nPos.x - m_nSize.x, m_nPos.y + m_nSize.y, 0.0f);
-		pVtx[3].pos = D3DXVECTOR3(m_nPos.x + m_nSize.x, m_nPos.y + m_nSize.y, 0.0f);
-	}
+		VERTEX_2D* pVtx;
 
-	if (C3dboss::GetBossEntry() == false)
-	{
-		for (int nCnt = 0; nCnt < 4; nCnt++)
+
+		//頂点バッファをロックし、頂点情報へのポインタを取得
+		CObject2D::GetBuff()->Lock(0, 0, (void**)&pVtx, 0);
+
+		if (C3dboss::GetBossEntry() == true)
 		{
-			pVtx[nCnt].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(m_nPos.x - m_nSize.x, m_nPos.y, 0.0f);
+			pVtx[1].pos = D3DXVECTOR3(m_nPos.x + m_nSize.x, m_nPos.y, 0.0f);
+			pVtx[2].pos = D3DXVECTOR3(m_nPos.x - m_nSize.x, m_nPos.y + m_nSize.y, 0.0f);
+			pVtx[3].pos = D3DXVECTOR3(m_nPos.x + m_nSize.x, m_nPos.y + m_nSize.y, 0.0f);
 		}
-	}
 
-	CObject2D::GetBuff()->Unlock();
+		if (C3dboss::GetBossEntry() == false)
+		{
+			for (int nCnt = 0; nCnt < 4; nCnt++)
+			{
+				pVtx[nCnt].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+			}
+		}
+
+		CObject2D::GetBuff()->Unlock();
+
+	}
 
 	int nFadeState = CFade::GetFadeState();
 

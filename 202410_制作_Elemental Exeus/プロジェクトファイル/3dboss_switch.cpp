@@ -83,34 +83,38 @@ void C3dswitchbs::Uninit()
 // 更新処理
 //======================
 void C3dswitchbs::Update()
-{
-    for (int nCntPriority = 0; nCntPriority < MAX_PRIORITY; nCntPriority++)
+{	
+    //ゲームが進行可能の時のみ通す
+    if (CScene::GetUpdateStat() == true)
     {
-        //ブロックの当たり判定
-        for (int nCntObj = 0; nCntObj < C3dswitchbs::MAX_SWITCH_BS; nCntObj++)
+        for (int nCntPriority = 0; nCntPriority < MAX_PRIORITY; nCntPriority++)
         {
-            CObject* pObj = CObject::GetObj(nCntPriority, nCntObj);
-
-            if (pObj != nullptr)
+            //ブロックの当たり判定
+            for (int nCntObj = 0; nCntObj < C3dswitchbs::MAX_SWITCH_BS; nCntObj++)
             {
-                CObject::TYPE type = pObj->GetType();
+                CObject* pObj = CObject::GetObj(nCntPriority, nCntObj);
 
-                //ブロックだった場合
-                if (type == CObject::TYPE::SWITCH_BS)
+                if (pObj != nullptr)
                 {
-                    D3DXVECTOR3 Pos = CObject3D::GetPos();
+                    CObject::TYPE type = pObj->GetType();
+
+                    //ブロックだった場合
+                    if (type == CObject::TYPE::SWITCH_BS)
+                    {
+                        D3DXVECTOR3 Pos = CObject3D::GetPos();
 
 
-                    SetPos(Pos);
+                        SetPos(Pos);
 
-                    //X座標の移動量を更新
-                    m_nMove.x += (0.0f - m_nMove.x) * 0.1f;
+                        //X座標の移動量を更新
+                        m_nMove.x += (0.0f - m_nMove.x) * 0.1f;
 
-                    //Z座標の移動量を更新
-                    m_nMove.z += (0.0f - m_nMove.z) * 0.1f;
+                        //Z座標の移動量を更新
+                        m_nMove.z += (0.0f - m_nMove.z) * 0.1f;
+
+                    }
 
                 }
-
             }
         }
     }

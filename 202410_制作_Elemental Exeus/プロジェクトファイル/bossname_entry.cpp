@@ -201,6 +201,54 @@ void CBossEntryUI::Uninit()
 //=========================
 void CBossEntryUI::Update()
 {
+    //ゲームが進行可能の時のみ通す
+    if (CScene::GetUpdateStat() == true)
+    {
+
+        if (m_bUse[CBossEntryUI::ICON_BOSSNAME] == true)
+        {
+
+            if (m_nPos[CBossEntryUI::ICON_BOSSNAME].y > 420.0f)
+            {
+                m_nPos[CBossEntryUI::ICON_BOSSNAME].y -= 6.0f;
+            }
+
+            if (m_nPos[CBossEntryUI::ICON_BOSSNAME].y <= 420.0f)
+            {
+                m_nPos[CBossEntryUI::ICON_BOSSNAME].y = 420.0f;
+            }
+
+
+            if (C3dboss::GetBossEntry() == true)
+            {
+                m_bUse[CBossEntryUI::ICON_BOSSNAME] = false;
+            }
+        }
+
+
+
+        if (m_bAlphaSwitch == false)
+        {
+            m_nAlphaCnt--;
+        }
+
+        if (m_bAlphaSwitch == true)
+        {
+            m_nAlphaCnt++;
+        }
+
+        if (m_nAlphaCnt == 205)
+        {
+            m_bAlphaSwitch = true;
+        }
+
+        if (m_nAlphaCnt == 255)
+        {
+            m_bAlphaSwitch = false;
+        }
+
+        SetAlpha(m_nAlphaCnt);
+    }
 
     //フェードの状態を取得
     int nFadeState = CFade::GetFadeState();
@@ -211,51 +259,6 @@ void CBossEntryUI::Update()
         CBossEntryUI::Uninit();
         return;
     }
-
-
-    if (m_bUse[CBossEntryUI::ICON_BOSSNAME] == true)
-    {
-
-        if (m_nPos[CBossEntryUI::ICON_BOSSNAME].y > 420.0f)
-        {
-            m_nPos[CBossEntryUI::ICON_BOSSNAME].y -= 6.0f;
-        }
-
-        if (m_nPos[CBossEntryUI::ICON_BOSSNAME].y <= 420.0f)
-        {
-            m_nPos[CBossEntryUI::ICON_BOSSNAME].y = 420.0f;
-        }
-
-
-        if (C3dboss::GetBossEntry() == true)
-        {
-            m_bUse[CBossEntryUI::ICON_BOSSNAME] = false;
-        }
-    }
-
-
-
-    if (m_bAlphaSwitch == false)
-    {
-        m_nAlphaCnt--;
-    }
-
-    if (m_bAlphaSwitch == true)
-    {
-        m_nAlphaCnt++;
-    }
-
-    if (m_nAlphaCnt == 205)
-    {
-        m_bAlphaSwitch = true;
-    }
-
-    if (m_nAlphaCnt == 255)
-    {
-        m_bAlphaSwitch = false;
-    }
-
-    SetAlpha(m_nAlphaCnt);
 
 }
 

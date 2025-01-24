@@ -61,10 +61,12 @@ void C3dgoalobj::Uninit()
 //======================
 void C3dgoalobj::Update()
 {
-    //if (CManager::GetKeyboard()->GetTrigger(DIK_M))
-    //{
-    //    ResultMove();
-    //}
+    #if _DEBUG
+        if (CManager::GetKeyboard()->GetTrigger(DIK_M))
+        {
+            ResultMove();
+        }
+    #endif
 
     int GetLife = C3dboss::GetBossLife();
 
@@ -72,12 +74,8 @@ void C3dgoalobj::Update()
     {
         m_nEndTimer++;
 
-        //if (m_nEndTimer == 60)
-        //{
-        //    CEndCallUI::DisplayEndCallUI(CEndCallUI::ICONDISPLAY::ICON_SPSUCCESS, CEndCallUI::UIDISPLAY::UI_DISPLAY);
-        //}
-        //ResultMove();
     }
+
 
 
     int nFadeState = CFade::GetFadeState();
@@ -424,7 +422,6 @@ void C3dgoalobj::ResultMove()
     //}
 
 }
-
 
 int C3dgoalobj::GetStageNum(void)
 {

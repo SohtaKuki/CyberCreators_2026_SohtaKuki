@@ -37,7 +37,7 @@ CStageManager::CStageManager()
 //======================
 CStageManager::~CStageManager()
 {
-
+    m_pFile = nullptr;
 }
 
 //======================
@@ -102,7 +102,7 @@ void CStageManager::LoadStageData()
     int CreateObjType[MAX_OBJ];
     int CreateObjType2[MAX_OBJ];
 
-    //ステージを生成するデータを読み込む先をintで識別
+    //ステージを生成するデータを読み込む先を識別
     if (m_nType == 0)
     {
         m_pFile = fopen("data\\LOADSTAGE\\loadstage000.txt", "r");//ファイルを開く

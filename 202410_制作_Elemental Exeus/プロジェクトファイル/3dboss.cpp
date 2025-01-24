@@ -41,6 +41,7 @@ int C3dboss::m_nLife = 0;
 bool C3dboss::m_bEntry = false;
 D3DXVECTOR3 C3dboss::m_nPos = {};
 D3DVERTEXELEMENT9 C3dboss::m_aElements[MAX_FVF_DECL_SIZE] = {};
+D3DXVECTOR3 C3dboss::m_rot = {};
 
 //======================
 // コンストラクタ
@@ -66,6 +67,8 @@ C3dboss::C3dboss(int nPriority) : CModel(nPriority)
     m_bBossPowerUP = false;
     bUse = false;
     m_bEntry = false;
+    m_nBossDmgColorTimer = 0;
+    m_bBossDMGState = false;
 }
 
 //======================
@@ -109,7 +112,6 @@ HRESULT C3dboss::Init()
         m_pBuffMat[nCnt] = 0;
     }
 
-
     return S_OK;
 }
 
@@ -151,7 +153,6 @@ void C3dboss::Update()
     //ゲームが進行可能の時のみ通す
     if (CScene::GetUpdateStat() == true)
     {
-        //メモ -1.57f 右
         C3dboss::ModelMotion();
 
         D3DXVECTOR3 Pos = CObject3D::GetPos();
@@ -172,6 +173,7 @@ void C3dboss::Update()
             }
         }
 
+        //出現演出のモーション
         if (Motion == MOTION_ENTRY)
         {
             if (m_nMotionCnt == 0 && m_nFrameCnt == 0)
@@ -272,19 +274,12 @@ void C3dboss::Update()
                 {
                     //行動パターン抽選
                     if (m_nACTIONTimer >= 120)
+
                     {
-                        // 0から6までの乱数を生成
-                        random_number = BOSSACTION::ACTION_MELEE;
+                        int randoms[] = { BOSSACTION::ACTION_MELEE, BOSSACTION::ACTION_SHORTMELEE };
 
-                        if (random_number == BOSSACTION::ACTION_SPATK && m_bBossPowerUP == false)
-                        {
-                            random_number = BOSSACTION::ACTION_WIREDATK;
-                        }
-
-                        if (random_number == BOSSACTION::ACTION_UPPERATK && m_bFlying == false)
-                        {
-                            random_number = BOSSACTION::ACTION_WIREDATK;
-                        }
+                        // 任意の乱数を生成
+                        random_number = randoms[rand() % 2];
 
                         m_nACTIONTimer = 0;
                     }
@@ -314,9 +309,9 @@ void C3dboss::Update()
 
 
                         //プレイヤーが下、ボスが上にいてかつ距離が離れている場合
-                        if (m_bFlying == true && distance <= 560.0f && distance >= 360.0f && yDistance <= 240.0f && yDistance >= 200.0f)
+                        if (m_bFlying == true && distance <= 730.0f && distance >= 360.0f && yDistance <= 240.0f && yDistance >= 200.0f)
                         {
-                            int randoms[] = { BOSSACTION::ACTION_UPPERATK, BOSSACTION::ACTION_UPPERATK, BOSSACTION::ACTION_DOWN};
+                            int randoms[] = { BOSSACTION::ACTION_UPPERATK, BOSSACTION::ACTION_TORATK, BOSSACTION::ACTION_DOWN};
 
                             // 0から6までの乱数を生成
                             random_number = randoms[rand() % 3];
@@ -333,8 +328,10 @@ void C3dboss::Update()
                 { 
                     if (m_nACTIONTimer >= 120)
                     {
-                        // 0から6までの乱数を生成
-                        random_number = BOSSACTION::ACTION_MELEE;
+                        int randoms[] = { BOSSACTION::ACTION_MELEE, BOSSACTION::ACTION_SHORTMELEE};
+
+                        // 任意の乱数を生成
+                        random_number = randoms[rand() % 2];
 
                         m_nACTIONTimer = 0;
                     }
@@ -345,10 +342,10 @@ void C3dboss::Update()
                 {
                     if (m_nACTIONTimer >= 120)
                     {
-                        int randoms[] = { BOSSACTION::ACTION_DASHATK, BOSSACTION::ACTION_WIREDATK};
+                        int randoms[] = { BOSSACTION::ACTION_DASHATK, BOSSACTION::ACTION_WIREDATK,BOSSACTION::ACTION_TORATK };
 
                         // 0から6までの乱数を生成
-                        random_number = randoms[rand() % 2];
+                        random_number = randoms[rand() % 3];
 
                         //異常な方向を向いた際の対策
                         if (random_number == BOSSACTION::ACTION_DASHATK && m_rot.y >= 1.56f && m_rot.y <= -1.56f)
@@ -453,6 +450,23 @@ void C3dboss::Update()
                 random_number = 0;
             }
 
+            //下から竜巻を出す攻撃の場合
+            if (random_number == BOSSACTION::ACTION_TORATK)
+            {
+                SetPlayerMotion(MOTION_TORUPATK);
+                MotionUse = true;
+
+                random_number = 0;
+            }
+
+            if (random_number == BOSSACTION::ACTION_SHORTMELEE)
+            {
+                SetPlayerMotion(MOTION_SHORTMELEEATK);
+                MotionUse = true;
+
+                random_number = 0;
+            }
+
             //攻撃が終了したら回転の値を0にする
             if (m_bWiredAtk == false)
             {
@@ -516,6 +530,7 @@ void C3dboss::Update()
                 }
             }
 
+            //一定以下のボス体力の時のみ発動
             if (Motion == C3dboss::MOTION_SP_AIRATK && m_bBossSPATK == true)
             {
 
@@ -616,7 +631,7 @@ void C3dboss::Update()
 
 
 
-            //通常攻撃モーション
+            //突進攻撃モーション
             if (Motion == C3dboss::MOTION_ACTION)
             {
                 if (m_nMotionCnt == 0 && m_nFrameCnt == 0)
@@ -709,10 +724,12 @@ void C3dboss::Update()
                 }
             }
 
-            //if (CManager::GetKeyboard()->GetPress(DIK_Y))
-            //{
-            //    m_nLife--;
-            //}
+            #if _DEBUG
+                if (CManager::GetKeyboard()->GetPress(DIK_Y))
+                {
+                    m_nLife--;
+                }
+            #endif
 
             // 飛行状態を解除した場合
             if (m_bFlying == true && m_bBossUPzone == true && m_bBossDownzone == true)
@@ -763,19 +780,9 @@ void C3dboss::Update()
                 }
             }
 
+            //空中攻撃の場合
             if (Motion == C3dboss::MOTION_ACTION2)
             {
-
-                if (m_nMotionCnt == 0 && m_nFrameCnt == 0 && m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_RIGHT)
-                {
-                    //CBossATKUI::DisplayBossATKUI(CBossATKUI::ATKUI_DISPLAY::BSUI_R_AIRATK, CBossATKUI::UIDISPLAY::UI_DISPLAY);
-                }
-
-                if (m_nMotionCnt == 0 && m_nFrameCnt == 0 && m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_LEFT)
-                {
-                    //CBossATKUI::DisplayBossATKUI(CBossATKUI::ATKUI_DISPLAY::BSUI_L_AIRATK, CBossATKUI::UIDISPLAY::UI_DISPLAY);
-                }
-
                 if (m_nMotionCnt == 1 && m_nFrameCnt == 0)
                 {
 
@@ -837,9 +844,9 @@ void C3dboss::Update()
                 }
             }
 
+            //突進攻撃の当たり判定
             if (Motion == C3dboss::MOTION_ACTION)
             {
-                //弾と敵の当たり判定
                 for (int nCntObj = 0; nCntObj < C3denemy::MAX_ENEMY; nCntObj++)
                 {
                     CObject* pObj = CObject::GetObj(3, nCntObj);
@@ -871,6 +878,81 @@ void C3dboss::Update()
                 }
             }
 
+            //近接鉄拳攻撃の当たり判定
+            if (Motion == C3dboss::MOTION_SHORTMELEEATK && m_bATKCollisonState == true)
+            {
+                for (int nCntObj = 0; nCntObj < C3denemy::MAX_ENEMY; nCntObj++)
+                {
+                    CObject* pObj = CObject::GetObj(3, nCntObj);
+
+                    if (pObj != nullptr)
+                    {
+                        CObject::TYPE type = pObj->GetType();
+
+                        C3dplayer* p3dplayer = (C3dplayer*)pObj;
+
+                        D3DXVECTOR3 PlayerPos = p3dplayer->GetPos();
+
+                        //敵の場合
+                        if (type == CObject::TYPE::PLAYER && m_bDashATKDamage == false)
+                        {
+                            if (Pos.x >= PlayerPos.x - 300
+                                && Pos.x <= PlayerPos.x + 300
+                                && Pos.y >= PlayerPos.y - 170
+                                && Pos.y <= PlayerPos.y + 170
+                                && Pos.z >= PlayerPos.z - 20
+                                && Pos.z <= PlayerPos.z + 20)
+                            {
+                                p3dplayer->PlayerBlown(2); //プレイヤーをノックバックさせる
+                                p3dplayer->PlayerDamage(10); //ダメージを与える
+                                m_bDashATKDamage = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //竜巻を上に飛ばす攻撃
+            if (Motion == C3dboss::MOTION_TORUPATK)
+            {
+                if (m_nMotionCnt == 0 && m_nFrameCnt == 0)
+                {
+                    if (m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_LEFT)
+                    {
+                        C3dBossATKUI::DisplayBossATKUI(C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_UPPERDOUBLEATK, C3dBossATKUI::UIDISPLAY::UI_DISPLAY);
+                    }
+
+                    if (m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_RIGHT)
+                    {
+                        C3dBossATKUI::DisplayBossATKUI(C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_UPPERDOUBLEATK, C3dBossATKUI::UIDISPLAY::UI_DISPLAY);
+                    }
+                }
+
+                if (m_nMotionCnt == 2 && m_nFrameCnt == 0)
+                {
+                    CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_BOSS_TORNADO_WIDE_SHOT);
+                    //ここで竜巻を出す
+                    if (m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_LEFT)
+                    {
+                        C3dBossATKUI::DisplayBossATKUI(C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_UPPERDOUBLEATK, C3dBossATKUI::UIDISPLAY::UI_HIDDEN);
+                        C3dbosstornado::Create(D3DXVECTOR3(Pos.x + 610.0f, Pos.y - 400.0f, Pos.z), (4));
+                        C3dbosstornado::Create(D3DXVECTOR3(Pos.x + 410.0f, Pos.y - 650.0f, Pos.z), (4));
+                    }
+
+                    if (m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_RIGHT)
+                    {
+                        C3dBossATKUI::DisplayBossATKUI(C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_UPPERDOUBLEATK, C3dBossATKUI::UIDISPLAY::UI_HIDDEN);
+                        C3dbosstornado::Create(D3DXVECTOR3(Pos.x - 610.0f, Pos.y - 400.0f, Pos.z), (4));
+                        C3dbosstornado::Create(D3DXVECTOR3(Pos.x - 410.0f, Pos.y - 650.0f, Pos.z), (4));
+                    }
+
+                    CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_BOSS_TORUPATK_SHOT);
+                }
+
+            }
+
+            //近距離竜巻攻撃の場合
             if (Motion == C3dboss::MOTION_MELEEATK)
             {
                 if (m_nMotionCnt == 0 && m_nFrameCnt == 0)
@@ -907,6 +989,45 @@ void C3dboss::Update()
                 }
             }
 
+            //近距離鉄拳攻撃の場合
+            if (Motion == C3dboss::MOTION_SHORTMELEEATK)
+            {
+                if (m_nMotionCnt == 0 && m_nFrameCnt == 0)
+                {
+
+                    if (m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_LEFT)
+                    {
+                        C3dBossATKUI::DisplayBossATKUI(C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_MELEEATK, C3dBossATKUI::UIDISPLAY::UI_DISPLAY);
+                    }
+
+                    if (m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_RIGHT)
+                    {
+                        C3dBossATKUI::DisplayBossATKUI(C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_MELEEATK, C3dBossATKUI::UIDISPLAY::UI_DISPLAY);
+                    }
+                }
+
+                //攻撃とプレイヤーの当たり判定
+                if (m_nMotionCnt == 2 && m_nFrameCnt == 0)
+                {
+                    if (m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_LEFT)
+                    {
+                        C3dBossATKUI::DisplayBossATKUI(C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_MELEEATK, C3dBossATKUI::UIDISPLAY::UI_HIDDEN);
+                        CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_BOSS_MELEE_ATK);
+                    }
+
+                    if (m_nLRPos == C3dboss::BOSS_LRPOSTION::POSTION_RIGHT)
+                    {
+                        C3dBossATKUI::DisplayBossATKUI(C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_MELEEATK, C3dBossATKUI::UIDISPLAY::UI_HIDDEN);
+                        CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_BOSS_MELEE_ATK);
+                    }
+                    m_bATKCollisonState = true;
+                }
+
+                if (m_nMotionCnt == 2 && m_nFrameCnt == 15)
+                {
+                    m_bATKCollisonState = false;
+                }
+            }
 
             CObject* pObj = CObject::GetObj(3, 1);
 
@@ -1119,6 +1240,18 @@ void C3dboss::Update()
         }
     }
 
+    //ダメージを受けた時
+    if (m_bBossDMGState == true)
+    {
+        m_nBossDmgColorTimer++;
+
+        if (m_nBossDmgColorTimer >= 5)
+        {
+            m_bBossDMGState = false; //マテリアルの色を戻す
+            m_nBossDmgColorTimer = 0;
+        }
+    }
+
 
     int nFadeState = CFade::GetFadeState();
 
@@ -1179,6 +1312,13 @@ void C3dboss::Draw()
     //マテリアルを取得
     pDevice->GetMaterial(&matDef);
 
+    // ダメージ時のモデルのマテリアル設定
+    D3DMATERIAL9 DMGMaterial = {};
+    DMGMaterial.Diffuse.r = 1.0f; // 赤
+    DMGMaterial.Diffuse.g = 0.0f; // 緑
+    DMGMaterial.Diffuse.b = 0.0f; // 青
+    DMGMaterial.Diffuse.a = 1.0f; // 透明度
+
     for (int nCntParts = 0; nCntParts < BOSS_MODEL; nCntParts++)
     {
         //ワールドマトリックスの初期化
@@ -1216,9 +1356,19 @@ void C3dboss::Draw()
 
         for (int nCntMat = 0; nCntMat < (int)m_nNumMat[nCntParts]; nCntMat++)
         {
-            //マテリアルの設定
-            pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
+            //ダメージを受けていない時
+            if (m_bBossDMGState == false)
+            {
+                //マテリアルの設定
+                pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
+            }
 
+            //ダメージを受けている時
+            if (m_bBossDMGState == true)
+            {
+                // 強制的に赤色のマテリアルを設定
+                pDevice->SetMaterial(&DMGMaterial);
+            }
             //テクスチャの設定
             pDevice->SetTexture(0, NULL);
 
@@ -1325,6 +1475,7 @@ void C3dboss::BossDamage(int nDamage)
 {
     m_nLife -= nDamage;
     CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_ENEMY_DAMAGE);
+    m_bBossDMGState = true;
 }
 
 

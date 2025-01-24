@@ -1,7 +1,7 @@
 //=================================================
 //
 // ÉTÉEÉìÉhä÷åWèàóù (sound.h)
-// Author: Sohta Kuki (Base code by AKIRA TANAKA)
+// Author: Sohta Kuki (Base code Author : AKIRA TANAKA)
 //
 //=================================================
 
@@ -56,6 +56,9 @@ public:
 		SOUND_LABEL_SE_BOSS_TORNADO_ATK,
 		SOUND_LABEL_SE_ENTRY_WARNING,
 		SOUND_LABEL_SE_BOSS_EXPLOSION,
+		SOUND_LABEL_SE_PLAYER_ADDLIFE,
+		SOUND_LABEL_SE_ITEM_SPAWN,
+		SOUND_LABEL_SE_BOSS_TORUPATK_SHOT,
 		SOUND_LABEL_MAX,
 	}SOUND_LABEL;
 

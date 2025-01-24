@@ -18,6 +18,7 @@
 #include "3dexplosion.h"
 #include "3dslashwind_enemy.h"
 #include "3dexplosion_sub.h"
+#include "3dtornado_enemy.h"
 
 LPDIRECT3DTEXTURE9 C3denemyair::m_pTexBuff = nullptr;
 //======================
@@ -30,6 +31,7 @@ C3denemyair::C3denemyair(int nPriority) : CModel(nPriority)
     m_nLife = 3;
     m_bMoveSwitch = false;
     m_rot.y = 1.57f;
+    m_bAirEnemyDMGState = false;
 }
 
 //======================
@@ -141,14 +143,16 @@ void C3denemyair::Update()
         if (m_nMoveInterval == MOVE_INTERVAL)
         {
             m_bMoveSwitch = true;
+
+            MotionUse = false;
+            SetEnemyMotion(MOTION_ACTION);
+            MotionUse = true;
         }
 
         if (m_nShotInterval == 100)
         {
 
-            MotionUse = false;
-            SetEnemyMotion(MOTION_ACTION);
-            MotionUse = true;
+
         }
 
 
@@ -156,7 +160,8 @@ void C3denemyair::Update()
         {
             if (m_nMotionCnt == 2 && m_nFrameCnt == 0)
             {
-                C3dslashwindEnemy::Create(D3DXVECTOR3(Pos.x - 80.0f, Pos.y, Pos.z));
+                //C3dslashwindEnemy::Create(D3DXVECTOR3(Pos.x - 80.0f, Pos.y, Pos.z));
+                C3dtornadoEnemy::Create(D3DXVECTOR3(Pos.x - 80.0f, Pos.y, Pos.z), 1);
             }
         }
 
@@ -256,7 +261,17 @@ void C3denemyair::Update()
             }
         }
 
+        //ダメージを受けた時
+        if (m_bAirEnemyDMGState == true)
+        {
+            m_nAirEnemyDmgColorTimer++;
 
+            if (m_nAirEnemyDmgColorTimer >= 5)
+            {
+                m_bAirEnemyDMGState = false; //マテリアルの色を戻す
+                m_nAirEnemyDmgColorTimer = 0;
+            }
+        }
 
         int nFadeState = CFade::GetFadeState();
 
@@ -329,6 +344,13 @@ void C3denemyair::Draw()
     //マテリアルを取得
     pDevice->GetMaterial(&matDef);
 
+    // ダメージ時のモデルのマテリアル設定
+    D3DMATERIAL9 DMGMaterial = {};
+    DMGMaterial.Diffuse.r = 1.0f; // 赤
+    DMGMaterial.Diffuse.g = 0.0f; // 緑
+    DMGMaterial.Diffuse.b = 0.0f; // 青
+    DMGMaterial.Diffuse.a = 1.0f; // 透明度
+
     for (int nCntParts = 0; nCntParts < ENEMYAIR_MODEL; nCntParts++)
     {
         //ワールドマトリックスの初期化
@@ -366,8 +388,19 @@ void C3denemyair::Draw()
 
         for (int nCntMat = 0; nCntMat < (int)m_nNumMat[nCntParts]; nCntMat++)
         {
-            //マテリアルの設定
-            pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
+            //ダメージを受けていない時
+            if (m_bAirEnemyDMGState == false)
+            {
+                //マテリアルの設定
+                pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
+            }
+
+            //ダメージを受けている時
+            if (m_bAirEnemyDMGState == true)
+            {
+                // 強制的に赤色のマテリアルを設定
+                pDevice->SetMaterial(&DMGMaterial);
+            }
 
             //テクスチャの設定
             pDevice->SetTexture(0, NULL);
@@ -403,6 +436,7 @@ void C3denemyair::EnemyDamage()
     m_nLife--;
     CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_ENEMY_DAMAGE);
     C3dexplosion::Create(CObject3D::GetPos(), D3DXVECTOR3(35.0f, 35.0f, 0.0f), m_rot, 0);
+    m_bAirEnemyDMGState = true;
 }
 
 //======================

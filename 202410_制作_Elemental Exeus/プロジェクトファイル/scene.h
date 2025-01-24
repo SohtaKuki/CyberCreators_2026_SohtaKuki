@@ -51,7 +51,9 @@ public:
 	void Uninit() override;
 	void Update() override;
 	void Draw() override;
+	static bool GetTitleState() {return m_bTitleEnter; }
 private:
+	static bool m_bTitleEnter;
 };
 
 class CStageSelectSc : public CScene

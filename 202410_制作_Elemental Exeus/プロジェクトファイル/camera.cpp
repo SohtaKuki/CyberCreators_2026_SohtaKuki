@@ -76,22 +76,49 @@ void CCamera::Update()
 
 			//D3DXVECTOR3 PlayerPos = p3dPlayer->GetPos();
 
-			if (C3dgoalobj::GetStageNum() == 0 || C3dgoalobj::GetStageNum() == 1)
+			if (C3dgoalobj::GetStageNum() == 0)
 			{
 				//プレイヤーにカメラを追従する
 				m_posV.x = p3dPlayer->GetPos().x + 220.0f;
 				m_posR.x = p3dPlayer->GetPos().x + 220.0f;
 
 				//プレイヤーのy座標に合わせてカメラを追従する
-				if (p3dPlayer->GetPos().y >= 260.0f)
+				if (p3dPlayer->GetPos().y >= 320.0f)
 				{
-					m_posV.y = p3dPlayer->GetPos().y - 10.0f;
-					m_posR.y = p3dPlayer->GetPos().y - 10.0f;
+					m_posV.y = p3dPlayer->GetPos().y - 155.0f;
+					m_posR.y = p3dPlayer->GetPos().y - 150.0f;
 					m_posV.z = p3dPlayer->GetPos().z + 1250.0f;
 					m_posR.z = p3dPlayer->GetPos().z - 400.0f;
 				}
 
-				if (p3dPlayer->GetPos().y <= 260.0f)
+				//既定の高さ以下の場所にいた場合
+				else
+				{
+					m_posV.y = 195.0f;
+					m_posR.y = 190.0f;
+					m_posV.z = p3dPlayer->GetPos().z + 1250.0f;
+					m_posR.z = p3dPlayer->GetPos().z - 400.0f;
+				}
+			}
+
+			//ステージ1の場合
+			if (C3dgoalobj::GetStageNum() == 1)
+			{
+				//プレイヤーにカメラを追従する
+				m_posV.x = p3dPlayer->GetPos().x + 220.0f;
+				m_posR.x = p3dPlayer->GetPos().x + 220.0f;
+
+				//プレイヤーのy座標に合わせてカメラを追従する
+				if (p3dPlayer->GetPos().y >= 410.0f)
+				{
+					m_posV.y = p3dPlayer->GetPos().y - 15.0f;
+					m_posR.y = p3dPlayer->GetPos().y - 0.0f;
+					m_posV.z = p3dPlayer->GetPos().z + 1250.0f;
+					m_posR.z = p3dPlayer->GetPos().z - 400.0f;
+				}
+
+				//既定の高さ以下の場所にいた場合
+				else
 				{
 					m_posV.y = 195.0f;
 					m_posR.y = 190.0f;

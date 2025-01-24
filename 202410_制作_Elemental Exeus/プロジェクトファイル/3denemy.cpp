@@ -18,6 +18,7 @@
 #include "3dexplosion.h"
 #include "3dslashwind_enemy.h"
 #include "3dexplosion_sub.h"
+#include "3dtornado_effect.h"
 
 LPDIRECT3DTEXTURE9 C3denemy::m_pTexBuff = nullptr;
 int C3denemy::m_nMaxEnemy = 0;
@@ -32,6 +33,8 @@ C3denemy::C3denemy(int nPriority) : CModel(nPriority)
     m_nLife = 3;
     m_bMoveSwitch = false;
     m_rot.y = 1.57f;
+    m_bEnemyDMGState = false;
+    m_nEnemyDmgColorTimer = 0;
 }
 
 //======================
@@ -134,7 +137,6 @@ void C3denemy::Update()
         if (m_nAtkInterval == ATK_INTERVAL)
         {
             //C3dbullet::Create(Pos, D3DXVECTOR3(7.0f, 7.0f, 0.0f), m_rot, 1);
-
         }
 
 
@@ -164,7 +166,7 @@ void C3denemy::Update()
             if (m_nMotionCnt == 2 && m_nFrameCnt == 0)
             {
                 C3dslashwindEnemy::Create(D3DXVECTOR3(Pos.x - 80.0f, Pos.y, Pos.z));
-
+                C3dexplosion::Create(D3DXVECTOR3(Pos.x - 80.0f, Pos.y - 15.0f, Pos.z), D3DXVECTOR3(95.0f, 95.0f, 0.0f), m_rot, 1);
             }
 
             if (m_nMotionCnt == 3 && m_nFrameCnt == 0)
@@ -269,6 +271,18 @@ void C3denemy::Update()
             }
         }    
 
+        //ダメージを受けた時
+        if (m_bEnemyDMGState == true)
+        {
+            m_nEnemyDmgColorTimer++;
+
+            if (m_nEnemyDmgColorTimer >= 5)
+            {
+                m_bEnemyDMGState = false; //マテリアルの色を戻す
+                m_nEnemyDmgColorTimer = 0;
+            }
+        }
+
         int nFadeState = CFade::GetFadeState();
 
         if (nFadeState == CFade::FADE_OUT)
@@ -340,6 +354,13 @@ void C3denemy::Draw()
     //マテリアルを取得
     pDevice->GetMaterial(&matDef);
 
+    // ダメージ時のモデルのマテリアル設定
+    D3DMATERIAL9 DMGMaterial = {};
+    DMGMaterial.Diffuse.r = 1.0f; // 赤
+    DMGMaterial.Diffuse.g = 0.0f; // 緑
+    DMGMaterial.Diffuse.b = 0.0f; // 青
+    DMGMaterial.Diffuse.a = 1.0f; // 透明度
+
     for (int nCntParts = 0; nCntParts < ENEMY_MODEL; nCntParts++)
     {
         //ワールドマトリックスの初期化
@@ -377,8 +398,19 @@ void C3denemy::Draw()
 
         for (int nCntMat = 0; nCntMat < (int)m_nNumMat[nCntParts]; nCntMat++)
         {
-            //マテリアルの設定
-            pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
+            //ダメージを受けていない時
+            if (m_bEnemyDMGState == false)
+            {
+                //マテリアルの設定
+                pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
+            }
+
+            //ダメージを受けている時
+            if (m_bEnemyDMGState == true)
+            {
+                // 強制的に赤色のマテリアルを設定
+                pDevice->SetMaterial(&DMGMaterial);
+            }
 
             //テクスチャの設定
             pDevice->SetTexture(0, NULL);
@@ -409,11 +441,12 @@ void C3denemy::Draw()
 //======================
 // 敵のダメージ処理
 //======================
-void C3denemy::EnemyDamage()
+void C3denemy::EnemyDamage(int nDamage)
 {
-    m_nLife--;
+    m_nLife -= nDamage;
     CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_ENEMY_DAMAGE);
     C3dexplosion::Create(CObject3D::GetPos(), D3DXVECTOR3(35.0f, 35.0f, 0.0f), m_rot, 0);
+    m_bEnemyDMGState = true;
 }
 
 //======================
@@ -828,6 +861,7 @@ bool C3denemy::Collision3DEnemy(D3DXVECTOR3* pPos, D3DXVECTOR3* pPosOld, D3DXVEC
     {
         pPos->x = Pos.x + fBlockWidth + fWidth;
     }
+
     // 左側当たり判定
     else if (pPos->x + fWidth >= Pos.x - fBlockWidth && pPosOld->x + fWidth <= Pos.x - fBlockWidth && pPos->z - fHeight < Pos.z + fBlockDepth && pPos->z > Pos.z - fBlockDepth && pPos->y < Pos.y + fBlockHeight - 5.0f && pPos->y > Pos.y - fBlockHeight - 120.0f)
     {
@@ -843,8 +877,8 @@ bool C3denemy::Collision3DEnemy(D3DXVECTOR3* pPos, D3DXVECTOR3* pPosOld, D3DXVEC
     else if (pPos->x - fWidth < Pos.x + fBlockWidth && pPos->x + fWidth > Pos.x - fBlockWidth && pPos->z >= Pos.z - fBlockDepth && pPosOld->z <= Pos.z - fBlockDepth && pPos->y < Pos.y + fBlockHeight && pPos->y > Pos.y - fBlockHeight)
     {
         pPos->z = Pos.z - fBlockDepth + 50.0f - fHeight;
-        bLanding = true;
     }
+
     // 上側当たり判定
     if (pPos->x - fWidth < Pos.x + fBlockWidth && pPos->x + fWidth > Pos.x - fBlockWidth && pPos->y - fHeight <= Pos.y + fBlockHeight && pPosOld->y - fHeight >= Pos.y + fBlockHeight && pPos->z < Pos.z + fBlockDepth && pPos->z > Pos.z - fBlockDepth)
     {

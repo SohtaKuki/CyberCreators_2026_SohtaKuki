@@ -10,6 +10,7 @@
 
 LPDIRECT3DTEXTURE9 C3ditem::m_pTexBuff = nullptr;
 int C3ditem::m_nType = 0;				// オブジェクト総数
+int C3ditem::m_nItemNum = 0;
 
 //======================
 // コンストラクタ
@@ -39,6 +40,8 @@ HRESULT C3ditem::Init()
         return E_FAIL;
     }
 
+    m_nItemNum++;
+
     return S_OK;
 }
 
@@ -47,6 +50,8 @@ HRESULT C3ditem::Init()
 //======================
 void C3ditem::Uninit()
 {
+    m_nItemNum--;
+
     CModel::Uninit();
 }
 

@@ -45,6 +45,7 @@ public:
 	static bool DisplayBossCallUI(int nDisplayID, int DisplayOption);
 	static bool GetStartStat() { return m_bStartComplete; }
 	static bool GetEndStat() { return m_bAnimationEnd; }
+	static bool GetBeginCallUI() { return m_bBeginCallUI; }
 private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;
 	LPDIRECT3DTEXTURE9 m_pTexBuff[NUM_ICON];
@@ -60,6 +61,7 @@ private:
 	static bool m_bAnimationEnd;
 	static bool m_bStartCallFlag;
 	static bool m_bStartComplete;
+	static bool m_bBeginCallUI;
 };
 
 #endif

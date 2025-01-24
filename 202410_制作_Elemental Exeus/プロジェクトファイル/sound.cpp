@@ -1,7 +1,7 @@
 //=============================================================================
 //
 // サウンド処理 [sound.cpp]
-// Author : AKIRA TANAKA
+// Author : Sohta Kuki (Base code Author : AKIRA TANAKA)
 //
 //=============================================================================
 #include "sound.h"
@@ -63,6 +63,9 @@ SOUNDINFO g_aSoundInfo[CSound::SOUND_LABEL_MAX] =
 	{"data\\SOUND\\SE\\BossTornadoShot000.wav", 0, 0.5f}, //竜巻攻撃SE
 	{"data\\SOUND\\SE\\Warning000.wav", -1, 1.0f}, //竜巻攻撃SE
 	{"data\\SOUND\\SE\\BossExplosion000.wav", 0, 0.8f}, //ボス爆発SE
+	{"data\\SOUND\\SE\\addlife000.wav", 0, 0.8f}, //ボス爆発SE
+	{"data\\SOUND\\SE\\ItemSpawn000.wav", 0, 0.8f}, //アイテムスポーンSE
+	{"data\\SOUND\\SE\\BossUPTornadoATK_SHOT.wav", 0, 0.8f}, //アイテムスポーンSE
 };
 
 //=============================================================================

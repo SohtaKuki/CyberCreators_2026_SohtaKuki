@@ -177,7 +177,9 @@
     <ClCompile Include="3dslashwind_enemy.cpp" />
     <ClCompile Include="3dtornado.cpp" />
     <ClCompile Include="3dtornado_effect.cpp" />
+    <ClCompile Include="3dtornado_enemy.cpp" />
     <ClCompile Include="3dtutorialui.cpp" />
+    <ClCompile Include="addlifespawner.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="blizardfloor.cpp" />
     <ClCompile Include="block.cpp" />
@@ -196,6 +198,7 @@
     <ClCompile Include="gameui.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="ItemdropUI.cpp" />
     <ClCompile Include="letterbox.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
@@ -228,6 +231,7 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="titlebg.cpp" />
+    <ClCompile Include="tornado_reloadUI.cpp" />
     <ClCompile Include="tutorialui.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -259,7 +263,9 @@
     <ClInclude Include="3dslashwind_enemy.h" />
     <ClInclude Include="3dtornado.h" />
     <ClInclude Include="3dtornado_effect.h" />
+    <ClInclude Include="3dtornado_enemy.h" />
     <ClInclude Include="3dtutorialui.h" />
+    <ClInclude Include="addlifespawner.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="blizardfloor.h" />
     <ClInclude Include="block.h" />
@@ -278,6 +284,7 @@
     <ClInclude Include="gameui.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="ItemdropUI.h" />
     <ClInclude Include="letterbox.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="main.h" />
@@ -310,6 +317,7 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="titlebg.h" />
+    <ClInclude Include="tornado_reloadUI.h" />
     <ClInclude Include="tutorialui.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

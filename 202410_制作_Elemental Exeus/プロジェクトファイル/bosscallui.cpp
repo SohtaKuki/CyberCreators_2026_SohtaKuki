@@ -11,6 +11,8 @@ bool CBossCallUI::m_bUse[NUM_ICON] = {};
 bool CBossCallUI::m_bStartComplete = false;
 bool CBossCallUI::m_bStartCallFlag = false;
 bool CBossCallUI::m_bAnimationEnd = false;
+bool CBossCallUI::m_bBeginCallUI = false;
+
 //============================
 //コンストラクタ
 //============================
@@ -145,101 +147,107 @@ void CBossCallUI::Uninit()
 //=========================
 void CBossCallUI::Update()
 {
-
-    if (m_bStartCallFlag == true && m_bUse[0] == false && m_bImageSwitch == false)
+    //ゲームが進行可能の時のみ通す
+    if (CScene::GetUpdateStat() == true)
     {
 
-        m_bUse[0] = true;
-    }
-
-    if (m_bStartCallFlag == true && m_bUse[0] == true)
-    {
-        if (m_nPos[0].y < 160.0f)
+        if (m_bStartCallFlag == true && m_bUse[0] == false && m_bImageSwitch == false)
         {
-            m_nPos[0].y += 4.0f;
+
+            m_bUse[0] = true;
         }
 
-        if (m_nPos[0].y >= 160.0f)
+        if (m_bStartCallFlag == true && m_bUse[0] == true)
         {
-            m_nPos[0].y = 160.0f;
-            m_nMissonAnim++;
+            if (m_nPos[0].y < 160.0f)
+            {
+                m_nPos[0].y += 4.0f;
+            }
+
+            if (m_nPos[0].y >= 160.0f)
+            {
+                m_nPos[0].y = 160.0f;
+                m_nMissonAnim++;
+            }
+
+
+            if (m_nMissonAnim == 30)
+            {
+                m_nMissonAnim = 0;
+                m_bImageSwitch = true;
+
+            }
+        }
+
+        //=================
+        //別テクスチャを表示させる
+        //================
+        if (m_bImageSwitch == true)
+        {
+            if (m_bUse[1] == false && m_bUse[2] == false && m_bAnimationEnd == false)
+            {
+                CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_ENTRY_WARNING);
+                m_bUse[1] = true;
+                m_bUse[2] = true;
+                m_bBeginCallUI = true;
+            }
+
+            //ここで減速
+            if (m_nPos[1].x >= 600.0f && m_nPos[1].x < 800.0f)
+            {
+                m_nPos[1].x -= 1.5f;
+                m_nPos[2].x += 1.5f;
+                m_bStartComplete = true;
+            }
+
+            //減速後の加速
+            if (m_nPos[1].x <= 600.0f)
+            {
+                m_nPos[1].x -= 30.0f;
+                m_nPos[2].x += 30.0f;
+            }
+
+            //初動
+            if (m_nPos[1].x >= 800.0f)
+            {
+                m_nPos[1].x -= 15.0f;
+                m_nPos[2].x += 15.0f;
+            }
+
+            if (m_nPos[1].x < -1500.0f && m_nPos[2].x > -1500.0f)
+            {
+                m_bUse[0] = false;
+                m_bUse[1] = false;
+                m_bUse[2] = false;
+                m_bAnimationEnd = true;
+                m_bBeginCallUI = false;
+            }
         }
 
 
-        if (m_nMissonAnim == 30)
+        if (m_bAlphaSwitch == false)
         {
-            m_nMissonAnim = 0;
-            m_bImageSwitch = true;
-            
-        }
-    }
-
-    //=================
-    //別テクスチャを表示させる
-    //================
-    if (m_bImageSwitch == true)
-    {
-
-
-        if (m_bUse[1] == false && m_bUse[2] == false && m_bAnimationEnd == false)
-        {
-            CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_ENTRY_WARNING);
-            m_bUse[1] = true;
-            m_bUse[2] = true;
+            m_nAlphaCnt--;
         }
 
-        if (m_nPos[1].x >= 600.0f && m_nPos[1].x < 800.0f)
+        if (m_bAlphaSwitch == true)
         {
-            m_nPos[1].x -= 1.5f;
-            m_nPos[2].x += 1.5f;
-            m_bStartComplete = true;
+            m_nAlphaCnt++;
         }
 
-
-        //if (m_nPos[2].x >= 600.0f && m_nPos[2].x < 800.0f)
-        //{
-        //    m_nPos[2].x += 1.5f;
-        //}
-
-
-        else
+        if (m_nAlphaCnt == 205)
         {
-            m_nPos[1].x -= 15.0f;
-            m_nPos[2].x += 15.0f;
+            m_bAlphaSwitch = true;
         }
 
-        if (m_nPos[1].x < -1500.0f && m_nPos[2].x > -1500.0f)
+        if (m_nAlphaCnt == 255)
         {
-            m_bUse[0] = false;
-            m_bUse[1] = false;
-            m_bUse[2] = false;
-            m_bAnimationEnd = true;
+            m_bAlphaSwitch = false;
         }
+
+        SetAlpha(m_nAlphaCnt);
+
     }
-
-
-    if (m_bAlphaSwitch == false)
-    {
-        m_nAlphaCnt--;
-    }
-
-    if (m_bAlphaSwitch == true)
-    {
-        m_nAlphaCnt++;
-    }
-
-    if (m_nAlphaCnt == 205)
-    {
-        m_bAlphaSwitch = true;
-    }
-
-    if (m_nAlphaCnt == 255)
-    {
-        m_bAlphaSwitch = false;
-    }
-
-    SetAlpha(m_nAlphaCnt);
-
 
     //フェードの状態を取得
     int nFadeState = CFade::GetFadeState();
@@ -249,7 +257,6 @@ void CBossCallUI::Update()
     {
         CBossCallUI::Uninit();
     }
-
 }
 
 void CBossCallUI::SetAlpha(int nAlpha)

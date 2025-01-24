@@ -83,6 +83,7 @@ public:
 		BOSS_TORNADO, //ボス用の竜巻
 		HIT_EFCT, //ヒット時のエフェクト
 		RANKING, //ランキング
+		SLASHTORNADO_ENEMY, //敵の竜巻攻撃
 		MAX_TYPE,
 	}TYPE;
 

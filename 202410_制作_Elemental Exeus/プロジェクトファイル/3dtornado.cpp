@@ -13,6 +13,7 @@
 #include "3denemy_air.h"
 #include "3dhiteffect.h"
 #include "3dblock.h"
+#include "tornado_reloadUI.h"
 
 LPDIRECT3DTEXTURE9 C3dtornado::m_pTexBuff = nullptr;
 int C3dtornado::m_nMaxBlock = 0;
@@ -57,9 +58,9 @@ HRESULT C3dtornado::Init()
     m_nTimer = 0;
 
     m_bMoveSwitch = false;
-    m_nNumTornado--;
+    //m_nNumTornado--;
 
-    if (m_nNumTornado == 0 && (m_nType == C3dtornado::TORNADO_STATE::TORNADO_SET || m_nType == C3dtornado::TORNADO_STATE::TORNADO_ATK))
+    if (m_nNumTornado == 0 && (m_nType == C3dtornado::TORNADO_STATE::TORNADO_SET|| m_nType == C3dtornado::TORNADO_STATE::TORNADO_ATK))
     {
         m_nNumTornado = 0;
     }
@@ -93,8 +94,6 @@ void C3dtornado::Uninit()
 
     // ÉuÉçÉbÉNêîÇå∏ÇÁÇ∑
     m_nMaxBlock--;
-
-    m_nNumTornado++;
 
     m_bTorUpper = false;
 
@@ -152,6 +151,8 @@ void C3dtornado::Update()
             if (m_nTimer == TORNADO_TIMER)
             {
                 C3dtornado::m_bDisplay = false;
+
+                //m_nNumTornado++;
                 Uninit();
                 return;
             }
@@ -193,6 +194,7 @@ void C3dtornado::Update()
         }
 
 
+
         //íeÇ∆ìGÇÃìñÇΩÇËîªíË
         for (int nCntObj = 0; nCntObj < C3denemy::MAX_ENEMY; nCntObj++)
         {
@@ -217,7 +219,8 @@ void C3dtornado::Update()
                         && Pos.z <= EnemyPos.z + 10)
                     {
                         C3dhiteffect::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y + 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(90.0f, 90.0f, 0.0f), m_rot);
-                        p3denemy->EnemyDamage();
+                        p3denemy->EnemyDamage(2);
+                        Uninit();
                         return;
                     }
                 }
@@ -242,13 +245,14 @@ void C3dtornado::Update()
                 {
                     if (Pos.x >= EnemyPos.x - 25
                         && Pos.x <= EnemyPos.x + 25
-                        && Pos.y >= EnemyPos.y - 20
-                        && Pos.y <= EnemyPos.y + 50
+                        && Pos.y >= EnemyPos.y - 55
+                        && Pos.y <= EnemyPos.y + 55
                         && Pos.z >= EnemyPos.z - 10
                         && Pos.z <= EnemyPos.z + 10)
                     {
                         C3dhiteffect::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y + 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(90.0f, 90.0f, 0.0f), m_rot);
                         p3denemyair->EnemyDamage();
+                        Uninit();
                         return;
                     }
                 }
@@ -274,12 +278,12 @@ void C3dtornado::Update()
                     if (Pos.x >= BossPos.x - 75
                         && Pos.x <= BossPos.x + 75
                         && Pos.y >= BossPos.y - 25
-                        && Pos.y <= BossPos.y + 75
+                        && Pos.y <= BossPos.y + 155
                         && Pos.z >= BossPos.z - 10
                         && Pos.z <= BossPos.z + 10)
                     {
                         C3dhiteffect::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y + 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(90.0f, 90.0f, 0.0f), m_rot);
-                        p3dboss->BossDamage(10);
+                        p3dboss->BossDamage(24);
                         Uninit();
                         return;
                     }

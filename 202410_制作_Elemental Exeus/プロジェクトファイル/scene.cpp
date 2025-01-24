@@ -50,9 +50,13 @@
 #include "result_TimebonusScore.h"
 #include "ranking.h"
 #include "result_rank.h"
+#include "tornado_reloadUI.h"
+#include "addlifespawner.h"
+#include "ItemdropUI.h"
 
 bool CScene::bUpdate = {};
 bool CScene::m_bScreenSwitch = false;
+bool CTitle::m_bTitleEnter = false;
 
 //======================
 //コンストラクタ
@@ -188,7 +192,10 @@ HRESULT CGame::Init()
 {
 	CScene::Init();
 	CScore::Create(D3DXVECTOR3(1065.0f, 48.0f, 0.0f), D3DXVECTOR3(33.0f, 33.0f, 0.0f));
+	CTornadoReloadUI::Create(D3DXVECTOR3(29.0f, 698.0f, 0.0f), D3DXVECTOR3(2.5f, 41.0f, 0.0f));
 	CPlayerHpBar::Create(D3DXVECTOR3(85.0f, 679.4f, 0.0f), D3DXVECTOR3(-104.0f, -35.8f, 0.0f),(0));
+	CPlayerHpBar::Create(D3DXVECTOR3(85.0f, 679.4f, 0.0f), D3DXVECTOR3(-104.0f, -35.8f, 0.0f), (3));
+
 
 	CPlayerHpBar::Create(D3DXVECTOR3(85.0f, 719.0f, 0.0f), D3DXVECTOR3(-54.0f, -35.8f, 0.0f), (2));
 
@@ -196,7 +203,7 @@ HRESULT CGame::Init()
 	//ステージごとに生成する処理を変える
 	if (C3dgoalobj::GetStageNum() == 0)
 	{
-		CStartCallUI::Create(D3DXVECTOR3(640.0f, 160.0f, 0.0f), D3DXVECTOR3(180.0f, 150.0f, 0));
+		CStartCallUI::Create(D3DXVECTOR3(640.0f, 160.0f, 0.0f), D3DXVECTOR3(180.0f, 170.0f, 0));
 		CStageManager::Create(0);
 		CBillboard::Create(D3DXVECTOR3(-200.0f, -170.0f, 7150.0f), D3DXVECTOR3(600.0f, 300.0f, 0.0f));
 		CBillboard::Create(D3DXVECTOR3(1600.0f, -100.0f, 7150.0f), D3DXVECTOR3(600.0f, 300.0f, 0.0f));
@@ -218,11 +225,12 @@ HRESULT CGame::Init()
 		C3dbackground::Create(D3DXVECTOR3(2500.0f, 2000.0f, 4000.0f), 3);
 		C3dbackground::Create(D3DXVECTOR3(5000.0f, 2000.0f, 4000.0f), 3);
 
-		C3dTutorialUI::Create(D3DXVECTOR3(-100.0f, 100.0f, 300.0f), D3DXVECTOR3(100.0f, 100.0f, 0),0);
-		C3dTutorialUI::Create(D3DXVECTOR3(150.0f, 100.0f, 300.0f), D3DXVECTOR3(100.0f, 80.0f, 0),1);
-		C3dTutorialUI::Create(D3DXVECTOR3(450.0f, 150.0f, 300.0f), D3DXVECTOR3(120.0f, 140.0f, 0), 2);
-		C3dTutorialUI::Create(D3DXVECTOR3(700.0f, 100.0f, 300.0f), D3DXVECTOR3(100.0f, 80.0f, 0), 3);
-		C3dTutorialUI::Create(D3DXVECTOR3(900.0f, 100.0f, 300.0f), D3DXVECTOR3(100.0f, 80.0f, 0), 4);
+
+		C3dTutorialUI::Create(D3DXVECTOR3(-100.0f, 100.0f, 300.0f), D3DXVECTOR3(150.0f, 150.0f, 0),0);
+		C3dTutorialUI::Create(D3DXVECTOR3(150.0f, 100.0f, 300.0f), D3DXVECTOR3(120.0f, 100.0f, 0),1);
+		C3dTutorialUI::Create(D3DXVECTOR3(450.0f, 150.0f, 300.0f), D3DXVECTOR3(150.0f, 170.0f, 0), 2);
+		C3dTutorialUI::Create(D3DXVECTOR3(700.0f, 100.0f, 300.0f), D3DXVECTOR3(120.0f, 100.0f, 0), 3);
+		C3dTutorialUI::Create(D3DXVECTOR3(900.0f, 100.0f, 300.0f), D3DXVECTOR3(120.0f, 100.0f, 0), 4);
 		CScoreWindow::Create(D3DXVECTOR3(1100.0f, -20.0f, 0.0f), D3DXVECTOR3(180.0f, 180.0f, 0.0f));
 		CEndCallUI::Create(D3DXVECTOR3(640.0f, -100.0f, 0.0f), D3DXVECTOR3(180.0f, 150.0f, 0));
 
@@ -263,6 +271,7 @@ HRESULT CGame::Init()
 
 		CBossCallUI::Create(D3DXVECTOR3(640.0f, -253.0f, 0.0f), D3DXVECTOR3(180.0f, 80.0f, 0));
 		CPlayerHpBar::Create(D3DXVECTOR3(574.0f, 692.0f, 0.0f), D3DXVECTOR3(-25.0f, -17.0f, 0.0f), (1));
+		CPlayerHpBar::Create(D3DXVECTOR3(574.0f, 692.0f, 0.0f), D3DXVECTOR3(-25.0f, -17.0f, 0.0f), (4));
 
 		CBossEntryUI::Create(D3DXVECTOR3(640.0f, 700.0f, 0.0f), D3DXVECTOR3(420.0f, 340.0f, 0));
 		CLetterbox::Create(D3DXVECTOR3(640.0f, -250.0f, 0.0f), D3DXVECTOR3(180.0f, 70.0f, 0));
@@ -273,13 +282,17 @@ HRESULT CGame::Init()
 		C3dfireeffect::Create(D3DXVECTOR3(285.0f, 365.0f, -50.0f), D3DXVECTOR3(75.0f, 95.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 0);
 		C3dfireeffect::Create(D3DXVECTOR3(665.0f, 365.0f, -50.0f), D3DXVECTOR3(75.0f, 95.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 0);
 
-
 		CBossui::Create(D3DXVECTOR3(824.0f, 625.0f, 0.0f), D3DXVECTOR3(390.0f, 90.0f, 0.0f));
 		
 		CEndCallUI::Create(D3DXVECTOR3(640.0f, -100.0f, 0.0f), D3DXVECTOR3(180.0f, 150.0f, 0));
 		C3dBossATKUIDiag::Create(D3DXVECTOR3(0.0f, 0.0f, 50.0f), D3DXVECTOR3(0.0f, 0.0f, 0));
 
-		C3dBossATKUI::Create(D3DXVECTOR3(0.0f, 0.0f, 50.0f), D3DXVECTOR3(0.0f, 0.0f, 0));
+		C3dBossATKUI::Create(D3DXVECTOR3(0.0f, -20.0f, 50.0f), D3DXVECTOR3(0.0f, 0.0f, 0));
+		CAddLifeSpawner::Create(0);
+		CItemDropUI::Create(D3DXVECTOR3(150.0f, -15.0f, 0.0f), D3DXVECTOR3(150.0f, 80.0f, 0));
+
+
+		//C3dBossATKUI::DisplayBossATKUI(C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_UPPERDOUBLEATK, C3dBossATKUI::UIDISPLAY::UI_DISPLAY);
 	}
 
 	CPlayerWindow::Create(D3DXVECTOR3(185.0f, 585.0f, 0.0f), D3DXVECTOR3(210.0f, 150.0f, 0.0f));
@@ -325,6 +338,7 @@ void CGame::Update()
 	{
 		CManager::GetFade()->SetFade(CScene::MODE_TITLE);
 		CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_DECIDE);
+		C3dgoalobj::ResetStageNum();
 	}
 }
 
@@ -430,7 +444,7 @@ HRESULT CTitle::Init()
 {
 	CTitleBG::Create();
 	//CObjectBG::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f));
-
+	m_bTitleEnter = true;
 	return S_OK;
 }
 
@@ -441,6 +455,7 @@ void CTitle::Uninit()
 {
 	CManager::GetSound()->Stop(CSound::SOUND_LABEL_BGM);
 	CScene::Uninit();
+	m_bTitleEnter = false;
 }
 
 //======================
@@ -570,6 +585,7 @@ HRESULT CResultFail::Init()
 	CMeshField::Create(D3DXVECTOR3(50.0f, 3000.0f, 200.0f));
 	CResultBG::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f), 1);
 	CResultScore::Create(D3DXVECTOR3(150.0f, 400.0f, 0.0f), D3DXVECTOR3(100.0f, 100.0f, 0.0f));
+	CResultRank::Create(D3DXVECTOR3(1050.0f, 250.0f, 0.0f), D3DXVECTOR3(120.0f, 240.0f, 0.0f));
 
 	return S_OK;
 }
@@ -587,6 +603,14 @@ void CResultFail::Uninit()
 //======================
 void CResultFail::Update()
 {
+
+	//エンターキーが押されたとき
+	if (CManager::GetKeyboard()->GetTrigger(DIK_P) || CManager::GetJoypad()->GetTrigger(CInputJoypad::JOYKEY_RB))
+	{
+		CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_DECIDE);
+		CManager::GetFade()->SetFade(CScene::MODE_GAME);
+		CManager::GetSound()->Stop(CSound::SOUND_LABEL_BGM_RESULT);
+	}
 
 
 	//エンターキーが押されたとき

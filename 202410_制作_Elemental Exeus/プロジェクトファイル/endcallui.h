@@ -33,7 +33,7 @@ public:
 		UI_MAX,
 	}UIDISPLAY;
 
-	CEndCallUI(int nPriority = 20);
+	CEndCallUI(int nPriority = 22);
 	~CEndCallUI() override;
 	HRESULT Init() override;
 	void Uninit() override;

@@ -11,6 +11,7 @@
 #include "3dtornado.h"
 #include "3dboss.h"
 #include "3dhiteffect.h"
+#include "3dtornado_effect.h"
 
 LPDIRECT3DTEXTURE9 C3dslashwindEnemy::m_pTexBuff = nullptr;
 int C3dslashwindEnemy::m_nMaxBlock = 0;
@@ -46,6 +47,7 @@ HRESULT C3dslashwindEnemy::Init()
 
     m_nTimer = 0;
     m_bDisplay = true;
+    m_bDamage = false;
 
     return S_OK;
 }
@@ -77,6 +79,11 @@ void C3dslashwindEnemy::Uninit()
     // ブロック数を減らす
     m_nMaxBlock--;
 
+    if (m_bDamage == true)
+    {
+        m_bDamage = false;
+    }
+
     // 基底クラスの終了処理を呼び出す
     CModel::Uninit();
 }
@@ -85,65 +92,69 @@ void C3dslashwindEnemy::Uninit()
 // 更新処理
 //======================
 void C3dslashwindEnemy::Update()
-{
-    D3DXVECTOR3 Pos = CObject3D::GetPos();
-    D3DXVECTOR3 PlayerRot = C3dplayer::GetPlayerRot();
-
-
-    SetPos(Pos);
-
-    //自然消滅の処理
-    if (m_bDisplay == true)
+{	
+    //ゲームが進行可能の時のみ通す
+    if (CScene::GetUpdateStat() == true)
     {
-        m_nTimer++;
+        D3DXVECTOR3 Pos = CObject3D::GetPos();
+        D3DXVECTOR3 PlayerRot = C3dplayer::GetPlayerRot();
 
-        m_rot.y += 0.3f;
 
-        if (m_nTimer == SLASHWINDENEMY_TIMER)
+        SetPos(Pos);
+
+        //自然消滅の処理
+        if (m_bDisplay == true)
         {
-            m_bDisplay = false;
-            Uninit();
+            m_nTimer++;
+
+            m_rot.y += 0.3f;
+
+            if (m_nTimer == SLASHWINDENEMY_TIMER)
+            {
+                m_bDisplay = false;
+                Uninit();
+            }
+
         }
 
-    }
-
-    //コンボ攻撃の前回出した竜巻の削除
-    if (m_bComboDest == true)
-    {
-        m_bDisplay = false;
-
-        m_bComboDest = false;
-    }
-
-    //弾と敵の当たり判定
-    for (int nCntObj = 0; nCntObj < C3dslashwindEnemy::MAX_SLASHWINDENEMY; nCntObj++)
-    {
-        CObject* pObj = CObject::GetObj(3, nCntObj);
-
-        if (pObj != nullptr)
+        //コンボ攻撃の前回出した竜巻の削除
+        if (m_bComboDest == true)
         {
-            CObject::TYPE type = pObj->GetType();
+            m_bDisplay = false;
 
-            C3dplayer* p3dplayer = (C3dplayer*)pObj;
+            m_bComboDest = false;
+        }
 
-            D3DXVECTOR3 PlayerPos = p3dplayer->GetPos();
+        //弾と敵の当たり判定
+        for (int nCntObj = 0; nCntObj < C3dslashwindEnemy::MAX_SLASHWINDENEMY; nCntObj++)
+        {
+            CObject* pObj = CObject::GetObj(3, nCntObj);
 
-            //敵の場合
-            if (type == CObject::TYPE::PLAYER)
+            if (pObj != nullptr)
             {
-                if (Pos.x >= PlayerPos.x - 25
-                    && Pos.x <= PlayerPos.x + 25
-                    && Pos.y >= PlayerPos.y - 10
-                    && Pos.y <= PlayerPos.y + 10
-                    && Pos.z >= PlayerPos.z - 10
-                    && Pos.z <= PlayerPos.z + 10)
+                CObject::TYPE type = pObj->GetType();
+
+                C3dplayer* p3dplayer = (C3dplayer*)pObj;
+
+                D3DXVECTOR3 PlayerPos = p3dplayer->GetPos();
+
+                //敵の場合
+                if (type == CObject::TYPE::PLAYER && m_bDamage == false)
                 {
-                    m_bDisplay = false;
-                    p3dplayer->PlayerDamage(10);
-                    C3dhiteffect::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y + 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(140.0f, 140.0f, 0.0f), m_rot);
-                    CCamera::SetShake((4), 7.0f);
-                    Uninit();
-                    return;
+                    if (Pos.x >= PlayerPos.x - 25
+                        && Pos.x <= PlayerPos.x + 25
+                        && Pos.y >= PlayerPos.y - 10
+                        && Pos.y <= PlayerPos.y + 10
+                        && Pos.z >= PlayerPos.z - 10
+                        && Pos.z <= PlayerPos.z + 10)
+                    {
+
+                        C3dhiteffect::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y + 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(140.0f, 140.0f, 0.0f), m_rot);
+                        p3dplayer->PlayerDamage(2);
+                        CCamera::SetShake((4), 7.0f);
+                        m_bDamage = true;
+                    }
+
                 }
             }
         }
@@ -157,7 +168,7 @@ void C3dslashwindEnemy::Update()
     {
         m_bComboDest = true;
         m_nTimer = 0;
-
+        Uninit();
     }
 }
 

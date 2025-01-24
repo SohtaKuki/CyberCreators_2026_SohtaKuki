@@ -78,6 +78,7 @@ HRESULT C3dBossATKUI::Init()
 	m_pVtxBuff->Unlock();
 
 	return S_OK;
+
 }
 
 //======================
@@ -92,114 +93,141 @@ void C3dBossATKUI::Uninit()
 //終了処理
 //======================
 void C3dBossATKUI::Update()
-{
-	//頂点情報のポインタ
-	VERTEX_3D* pVtx;
-
-	//頂点バッファをロックし頂点情報時へのポインタを取得
-	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
-
-	//頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(-m_nSize.x, m_nSize.y, m_nSize.z);
-	pVtx[1].pos = D3DXVECTOR3(m_nSize.x * 2, m_nSize.y, m_nSize.z);
-	pVtx[2].pos = D3DXVECTOR3(-m_nSize.x, -m_nSize.y, m_nSize.z);
-	pVtx[3].pos = D3DXVECTOR3(m_nSize.x * 2, -m_nSize.y, m_nSize.z);
-
-	//法線ベクトルの設定
-	pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[1].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-
-	//頂点カラーの初期設定
-	pVtx[0].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	pVtx[1].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	pVtx[2].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	pVtx[3].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-
-	//テクスチャ座標の初期設定
-	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-	pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
-	pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
-	pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
-
-	pVtx += 4;
-
-	if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_LOWERDASHATK)
+{	
+	//ゲームが進行可能の時のみ通す
+	if (CScene::GetUpdateStat() == true)
 	{
-		m_nPos.x = 70.0f;
-		m_nPos.y = 170.0f;
+		//頂点情報のポインタ
+		VERTEX_3D* pVtx;
 
-		m_nSize.x = 180.0f;
-		m_nSize.y = 140.0f;
+		//頂点バッファをロックし頂点情報時へのポインタを取得
+		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+		//頂点座標の設定
+		pVtx[0].pos = D3DXVECTOR3(-m_nSize.x, m_nSize.y, m_nSize.z);
+		pVtx[1].pos = D3DXVECTOR3(m_nSize.x * 2, m_nSize.y, m_nSize.z);
+		pVtx[2].pos = D3DXVECTOR3(-m_nSize.x, -m_nSize.y, m_nSize.z);
+		pVtx[3].pos = D3DXVECTOR3(m_nSize.x * 2, -m_nSize.y, m_nSize.z);
+
+		//法線ベクトルの設定
+		pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+		pVtx[1].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+		pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+		pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+
+		//頂点カラーの初期設定
+		pVtx[0].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		pVtx[1].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		pVtx[2].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		pVtx[3].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+		//テクスチャ座標の初期設定
+		pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
+		pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
+		pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
+		pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
+
+		pVtx += 4;
+
+		if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_LOWERDASHATK)
+		{
+			m_nPos.x = 70.0f;
+			m_nPos.y = 170.0f;
+
+			m_nSize.x = 180.0f;
+			m_nSize.y = 140.0f;
+		}
+
+		if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_LOWERDASHATK)
+		{
+			m_nPos.x = 300.0f;
+			m_nPos.y = 170.0f;
+
+			m_nSize.x = 180.0f;
+			m_nSize.y = 140.0f;
+		}
+
+		if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_UPPERDASHATK)
+		{
+			m_nPos.x = 70.0f;
+			m_nPos.y = 350.0f;
+
+			m_nSize.x = 180.0f;
+			m_nSize.y = 140.0f;
+		}
+
+		if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_UPPERDASHATK)
+		{
+			m_nPos.x = 300.0f;
+			m_nPos.y = 350.0f;
+
+			m_nSize.x = 180.0f;
+			m_nSize.y = 140.0f;
+		}
+
+		if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_LOWERDASHATK)
+		{
+			m_nPos.x = 140.0f;
+			m_nPos.y = 170.0f;
+
+			m_nSize.x = 180.0f;
+			m_nSize.y = 140.0f;
+		}
+
+		if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_MELEEATK)
+		{
+			m_nPos.x = C3dboss::GetBossPosCamera().x + 200.0f;
+			m_nPos.y = C3dboss::GetBossPosCamera().y + 100.0f;
+
+			m_nSize.x = 140.0f;
+			m_nSize.y = 110.0f;
+		}
+
+		if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_MELEEATK)
+		{
+			m_nPos.x = C3dboss::GetBossPosCamera().x - 250.0f;
+			m_nPos.y = C3dboss::GetBossPosCamera().y + 100.0f;
+
+			m_nSize.x = 140.0f;
+			m_nSize.y = 110.0f;
+		}
+
+		if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_WIREDATK)
+		{
+			m_nPos.x = C3dboss::GetBossPosCamera().x - 200.0f;
+			m_nPos.y = C3dboss::GetBossPosCamera().y + 100.0f;
+
+			m_nSize.x = 1000.0f;
+			m_nSize.y = 110.0f;
+		}
+
+		if (m_nType == C3dBossATKUI::BSUI_L_UPPERDOUBLEATK)
+		{
+			m_nPos.x = 500.0f;
+			m_nPos.y = 350.0f;
+
+			m_nSize.x = 180.0f;
+			m_nSize.y = 740.0f;
+		}
+
+		if (m_nType == C3dBossATKUI::BSUI_R_UPPERDOUBLEATK)
+		{
+			m_nPos.x = -100.0f;
+			m_nPos.y = 350.0f;
+
+			m_nSize.x = 180.0f;
+			m_nSize.y = 740.0f;
+		}
+
+		//ボスの体力が0になったら非表示にする
+		if (C3dboss::GetBossLife() <= 0)
+		{
+			m_bUse = false;
+		}
+
+		//頂点バッファをアンロック
+		m_pVtxBuff->Unlock();
 	}
-
-	if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_LOWERDASHATK)
-	{
-		m_nPos.x = 300.0f;
-		m_nPos.y = 170.0f;
-
-		m_nSize.x = 180.0f;
-		m_nSize.y = 140.0f;
-	}
-
-	if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_UPPERDASHATK)
-	{
-		m_nPos.x = 70.0f;
-		m_nPos.y = 350.0f;
-
-		m_nSize.x = 180.0f;
-		m_nSize.y = 140.0f;
-	}
-
-	if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_UPPERDASHATK)
-	{
-		m_nPos.x = 300.0f;
-		m_nPos.y = 350.0f;
-
-		m_nSize.x = 180.0f;
-		m_nSize.y = 140.0f;
-	}
-
-	if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_LOWERDASHATK)
-	{
-		m_nPos.x = 140.0f;
-		m_nPos.y = 170.0f;
-
-		m_nSize.x = 180.0f;
-		m_nSize.y = 140.0f;
-	}
-
-	if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_L_MELEEATK)
-	{
-		m_nPos.x = C3dboss::GetBossPosCamera().x + 200.0f;
-		m_nPos.y = C3dboss::GetBossPosCamera().y + 100.0f;
-
-		m_nSize.x = 140.0f;
-		m_nSize.y = 110.0f;
-	}
-
-	if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_R_MELEEATK)
-	{
-		m_nPos.x = C3dboss::GetBossPosCamera().x - 250.0f;
-		m_nPos.y = C3dboss::GetBossPosCamera().y + 100.0f;
-
-		m_nSize.x = 140.0f;
-		m_nSize.y = 110.0f;
-	}
-
-	if (m_nType == C3dBossATKUI::ATKUI_DISPLAY::BSUI_WIREDATK)
-	{
-		m_nPos.x = C3dboss::GetBossPosCamera().x - 200.0f;
-		m_nPos.y = C3dboss::GetBossPosCamera().y + 100.0f;
-
-		m_nSize.x = 1000.0f;
-		m_nSize.y = 110.0f;
-	}
-
-	//頂点バッファをアンロック
-	m_pVtxBuff->Unlock();
 
 	//フェードの状態を取得
 	int nFadeState = CFade::GetFadeState();

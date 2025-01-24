@@ -97,6 +97,7 @@ public:
 	void Update()override;
 	void Draw()override;
 	void ModelMotion();
+	void PlayerBlown(int nType);
 	//void SetPlayerPos();
 	static C3dplayer* Create(D3DXVECTOR3 pos);
 	//void BindTexture(LPDIRECT3DTEXTURE9 pTex);
@@ -106,7 +107,7 @@ public:
 	void LoadPlayerData();
 	void PlayerWalkSound();
 	static int GetPlayerLife() {return m_nLife ; }
-	static int GetTorNum() { return m_nDisplayTorNum; }
+	static int GetTorNum() { return m_nNumTornado; }
 	D3DXVECTOR3& GetPlayerPos() { return m_nOld3DPlayerPos; }//座標の取得
 	static D3DXVECTOR3& GetPlayerRot() { return m_rot; }//座標の取得
 	static bool GetShotButtonPreesed() { return m_bAButtonPressed; }//射撃ボタンの押下状態を取得
@@ -149,6 +150,7 @@ private:
 	int m_nJumpType; //ジャンプ種別
 	int m_nMotionCnt; //モーション数
 	int m_nFrameCnt; //モーションのフレーム数
+	int m_nDeathTimer;
 	static int m_nLife; //プレイヤーの体力
 	bool MotionUse; //モーションを使用しているか
 	bool m_bIsCollision;
@@ -163,7 +165,11 @@ private:
 	int m_nComboNum; //コンボ数
 	bool m_bTorUPPER;
 	int m_nJumpTimer; //ジャンプ中の時間
-	static int m_nDisplayTorNum;
+	static int m_nNumTornado; //竜巻の数
+	int m_nTorReloadTimer; //竜巻のリロードタイマー
+	int m_nDisplayTorNum; //画面状に表示している竜巻
+	bool m_bDamageState; //ダメージを受けているか
+	int m_nDmgColorTimer; //ダメージ時のプレイヤーモデルの色を変えている時間
 
 protected:
 	D3DXVECTOR3 m_n3DPlayerMove;

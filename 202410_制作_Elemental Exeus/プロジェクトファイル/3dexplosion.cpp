@@ -67,7 +67,6 @@ HRESULT C3dexplosion::Init()
 	pVtx[3].col = D3DCOLOR_RGBA(255, 255, 255, 255);
 
 
-
 	pVtx += 4;
 
 	//頂点バッファをアンロック
@@ -135,11 +134,23 @@ void C3dexplosion::Update()
 		pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 		pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
-		//頂点カラーの初期設定
-		pVtx[0].col = D3DCOLOR_RGBA(255, 255, 255, 255);
-		pVtx[1].col = D3DCOLOR_RGBA(255, 255, 255, 255);
-		pVtx[2].col = D3DCOLOR_RGBA(255, 255, 255, 255);
-		pVtx[3].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+		if (m_nType == 0)
+		{
+			//頂点カラーの初期設定
+			pVtx[0].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+			pVtx[1].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+			pVtx[2].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+			pVtx[3].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+		}
+
+		if (m_nType == 1)
+		{
+			//頂点カラーの初期設定
+			pVtx[0].col = D3DCOLOR_RGBA(255, 60, 60, 255);
+			pVtx[1].col = D3DCOLOR_RGBA(255, 60, 60, 255);
+			pVtx[2].col = D3DCOLOR_RGBA(255, 60, 60, 255);
+			pVtx[3].col = D3DCOLOR_RGBA(255, 60, 60, 255);
+		}
 
 		if (m_bUse == true)
 		{
@@ -268,10 +279,11 @@ C3dexplosion* C3dexplosion::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXVECTOR
 {
 	C3dexplosion* explosion3d = new C3dexplosion;
 
+	explosion3d->m_nType = type;
+
 	//初期化に成功した場合
 	if (SUCCEEDED(explosion3d->Init()))
 	{
-		explosion3d->m_nType = type;
 
 		if (type == 0)
 		{

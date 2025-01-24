@@ -228,7 +228,7 @@ void C3dbullet::Update()
 						{
 							Uninit();
 							CScore::AddScore(300);
-							p3denemy->EnemyDamage();
+							p3denemy->EnemyDamage(1);
 							return;
 						}
 					}

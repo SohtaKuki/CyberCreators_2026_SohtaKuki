@@ -59,6 +59,7 @@ public:
 	bool Collision3DItem(D3DXVECTOR3* pPos, D3DXVECTOR3* pPosOld, D3DXVECTOR3* pMove, float fWidth, float fHeight);
 	static unsigned const int MAX_ITEM = 200;
 	static int GetItemType(){return m_nType; }
+	static int GetItemNum() { return m_nItemNum; }
 private:
 	D3DXMATRIX m_mtxworld;
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;
@@ -79,6 +80,7 @@ private:
 	D3DXVECTOR3 m_Move;
 	D3DXVECTOR3 m_rot;
 	int m_nFrameCnt;
+	static int m_nItemNum; //ÉAÉCÉeÉÄêî
 	bool m_bSwitchYpos;
 };
 

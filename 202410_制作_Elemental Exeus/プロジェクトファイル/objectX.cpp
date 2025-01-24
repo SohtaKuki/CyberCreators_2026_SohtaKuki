@@ -51,7 +51,12 @@ void CModel::Uninit()
 //======================
 void CModel::Update()
 {
+    int nFadeState = CFade::GetFadeState();
 
+    if (nFadeState == CFade::FADE_OUT)
+    {
+        CModel::Uninit();
+    }
 }
 
 //======================

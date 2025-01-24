@@ -85,7 +85,7 @@ void C3dmoveblock::Update()
 
             m_nTurnCnt += 5;
 
-            if (m_nTurnCnt == 400)
+            if (m_nTurnCnt == 455)
             {
                 m_bTurn = true;
                 m_nTurnCnt = 0;
@@ -105,7 +105,7 @@ void C3dmoveblock::Update()
             }
             m_nTurnCnt += 5;
 
-            if (m_nTurnCnt == 400)
+            if (m_nTurnCnt == 455)
             {
                 m_bTurn = false;
                 m_nTurnCnt = 0;

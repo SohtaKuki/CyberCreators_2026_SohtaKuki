@@ -8,6 +8,7 @@
 #include "object.h"
 #include "object2D.h"
 #include "manager.h"
+#include "scene.h"
 
 // プロトタイプ宣言
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -50,7 +51,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
     AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 
     // ウィンドウを生成
-    hWnd = CreateWindowEx(0, "WindowClass", "Elemental Exeus(エレメンタル・エグゼウス)", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, (rect.right - rect.left), (rect.bottom - rect.top), NULL, NULL, hInstance, NULL);
+    hWnd = CreateWindowEx(0, "WindowClass", "Elemental Exeus (エレメンタル・エグゼウス)", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, (rect.right - rect.left), (rect.bottom - rect.top), NULL, NULL, hInstance, NULL);
 
     g_pManager = new CManager;
 
@@ -122,11 +123,22 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         {
             // ESCキー入力時処理
         case VK_ESCAPE:
-            nID = MessageBox(hWnd, "終了しますか？", "終了確認", MB_YESNO | MB_ICONQUESTION);
+
+            //タイトル画面内かどうか
+            if (CTitle::GetTitleState() == true)
+            {
+                 DestroyWindow(hWnd); //ゲーム終了
+            }
+
+            //デバック時のみEscキーで即ゲーム終了できるようにする
+            #if _DEBUG
+            nID = MessageBox(hWnd, "ゲームを終了しますか？\n※保存されていないデータは失われます。", "終了確認", MB_YESNO | MB_ICONQUESTION);
             if (nID == IDYES)
             {
                 DestroyWindow(hWnd);
             }
+            #endif 
+
             break;
 
             // F3キーが押された時の処理
@@ -160,7 +172,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         // ウィンドウ上（×ボタン）入力時
     case WM_CLOSE:
-        nID = MessageBox(hWnd, "終了しますか？", "終了確認", MB_YESNO | MB_ICONQUESTION);
+        nID = MessageBox(hWnd, "ゲームを終了しますか？\n※保存されていないデータは失われます。", "終了確認", MB_YESNO | MB_ICONQUESTION);
         if (nID == IDYES)
         {
             DestroyWindow(hWnd);

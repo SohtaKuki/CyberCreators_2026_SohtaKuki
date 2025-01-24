@@ -49,8 +49,6 @@ HRESULT C3dblock::Init()
 //======================
 void C3dblock::Uninit()
 {
-
-
     // メッシュやマテリアルの解放
     for (int i = 0; i < BLOCK_MODEL; i++) 
     {
@@ -200,7 +198,6 @@ void C3dblock::Draw()
                 m_pMesh[nCntParts]->DrawSubset(nCntMat);
             }
         }
-
     }
 
     pDevice->SetMaterial(&matDef);

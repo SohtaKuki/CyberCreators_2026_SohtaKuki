@@ -59,7 +59,7 @@ public:
 	void LoadBlockData();
 	bool Collision3DBlock(D3DXVECTOR3* pPos, D3DXVECTOR3* pPosOld, D3DXVECTOR3* pMove, float fWidth, float fHeight);
 	static unsigned const int MAX_SLASHWINDENEMY = 90;	//オブジェクト最大数
-	static unsigned const int SLASHWINDENEMY_TIMER = 10;	//スラッシュウインド持続時間
+	static unsigned const int SLASHWINDENEMY_TIMER = 5;	//スラッシュウインド持続時間
 	D3DXVECTOR3& GetMoveBlock() { return m_nMove; } //Move値取得
 private:
 	D3DXMATRIX m_mtxworld;
@@ -84,6 +84,7 @@ private:
 	bool m_bTurn;
 	bool m_bDisplay;
 	static bool m_bComboDest;
+	bool m_bDamage;
 protected:
 	D3DXVECTOR3 m_nMove;
 	D3DXVECTOR3 m_rot;

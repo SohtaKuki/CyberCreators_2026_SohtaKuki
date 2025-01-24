@@ -25,6 +25,7 @@ class C3dboss : public CModel
 {
 public:
 
+	//ボスのモーション
 	typedef enum
 	{
 		MOTION_NORMAL = 0,
@@ -38,9 +39,12 @@ public:
 		MOTION_SP_AIRATK,
 		MOTION_ENTRY,
 		MOTION_MELEEATK,
+		MOTION_TORUPATK,
+		MOTION_SHORTMELEEATK,
 		MOTION_MAX
 	}BOSSMOTION;
 
+	//ボスの攻撃
 	typedef enum
 	{
 		ACTION_NONE = 0,
@@ -51,9 +55,12 @@ public:
 		ACTION_SPATK,
 		ACTION_UP,
 		ACTION_DOWN,
+		ACTION_TORATK,
+		ACTION_SHORTMELEE,
 		ACTION_MAX
 	}BOSSACTION;
 
+	//ボスの立ち位置
 	typedef enum
 	{
 		POSITION_NOPOS = 0,
@@ -137,6 +144,7 @@ public:
 	BOSSMOTION Motion;
 	void SetPlayerMotion(BOSSMOTION motion);
 	bool Collision3DBoss(D3DXVECTOR3* pPos, D3DXVECTOR3* pPosOld, D3DXVECTOR3* pMove, float fWidth, float fBlockHeight);
+	static D3DXVECTOR3 GetBossRot() {return m_rot ; }
 private:
 	D3DXMATRIX m_mtxworld;
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;
@@ -184,10 +192,13 @@ private:
 	float m_fRotSpeed; //回転速度
 	int m_nACTIONTimer; //各行動ごとの間隔
 	int random_number; //ボスの行動変数
-	bool m_bBossPowerUP;
-protected:
+	int m_nBossDmgColorTimer; //ダメージ時のマテリアルを変えている時間
+	bool m_bBossPowerUP; //ボスが強力な攻撃を打てるかどうか
+	bool m_bBossDMGState; //ボスがダメージを受けているか
+	bool m_bATKCollisonState; //近接攻撃の当たり判定を作動させるか
 	D3DXVECTOR3 m_n3DBossMove;
-	D3DXVECTOR3 m_rot;
+	static D3DXVECTOR3 m_rot;
+
 
 };
 

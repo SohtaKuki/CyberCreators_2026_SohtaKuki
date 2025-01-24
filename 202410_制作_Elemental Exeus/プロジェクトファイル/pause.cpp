@@ -132,7 +132,7 @@ void CPauseSelect::Update(void)
 		m_pVtxBuffPauseSelect->Lock(0, 0, (void**)&pVtx, 0);
 
 		//ポーズ画面を表示させる場合
-		if (CManager::GetKeyboard()->GetTrigger(DIK_P) || CManager::GetJoypad()->GetTrigger(CInputJoypad::JOYKEY_START))
+		if (CManager::GetKeyboard()->GetTrigger(DIK_ESCAPE) || CManager::GetJoypad()->GetTrigger(CInputJoypad::JOYKEY_START))
 		{
 			m_bUse = m_bUse ? false : true;
 		}

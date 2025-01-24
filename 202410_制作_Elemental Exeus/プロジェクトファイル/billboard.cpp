@@ -7,6 +7,7 @@
 
 #include "billboard.h"
 
+
 //======================
 // コンストラクタ
 //======================
@@ -32,7 +33,7 @@ HRESULT CBillboard::Init()
 	LPDIRECT3DDEVICE9 pDevice = Renderer->GetDevice();
 
 	//テクスチャの読込み
-	D3DXCreateTextureFromFile(pDevice, "data\\texture\\bg_mountain.png", &m_pTexture);
+	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\bg_mountain.png", &m_pTexture);
 
 	//頂点バッファの生成
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 4 * 1, D3DUSAGE_WRITEONLY, FVF_VERTEX_3D, D3DPOOL_MANAGED, &m_pVtxBuff, NULL);
@@ -123,6 +124,14 @@ void CBillboard::Update()
 
 	//頂点バッファをアンロック
 	m_pVtxBuff->Unlock();
+
+
+	int nFadeState = CFade::GetFadeState();
+
+	if (nFadeState == CFade::FADE_OUT)
+	{
+		CBillboard::Uninit();
+	}
 }
 
 //======================

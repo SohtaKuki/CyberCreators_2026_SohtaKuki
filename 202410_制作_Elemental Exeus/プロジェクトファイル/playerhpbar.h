@@ -34,6 +34,13 @@ private:
 	int m_nBarType = 0; //HPゲージの種別
 	float m_FrameDuration = 0.5f; // フレームの表示時間
 	float m_Frametimer = 0.0f;        // フレームの経過時間
+	float m_fCurrentLife; //プレイヤー体力の現在値
+	float m_fBossCurrentLife; //ボスの体力の現在値
+	float m_fTorCurrentLife; //竜巻の残量の現在値
+	float m_fTargetLife; //プレイヤー体力の目標値
+	float m_fTargetBossLife; //ボス体力の目標値
+	float m_fTargetTorLife; //竜巻の残量の目標値
+	float m_fLifeLerpSpeed; //ゲージの減少速度
 };
 
 #endif
