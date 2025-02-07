@@ -145,6 +145,7 @@ public:
 	void SetPlayerMotion(BOSSMOTION motion);
 	bool Collision3DBoss(D3DXVECTOR3* pPos, D3DXVECTOR3* pPosOld, D3DXVECTOR3* pMove, float fWidth, float fBlockHeight);
 	static D3DXVECTOR3 GetBossRot() {return m_rot ; }
+	static bool GetBossDeathState() { return m_bDeathSwitch; } //撃破されたどうか
 private:
 	D3DXMATRIX m_mtxworld;
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;
@@ -186,7 +187,7 @@ private:
 	bool m_bBossDownzone; //ボスが下にいるかどうか
 	bool m_bBossSPATK; //特殊攻撃をしているかどうか
 	bool m_bDashATKDamage; //突進攻撃のダメージを受けたか
-	bool m_bDeathSwitch; //撃破されたどうか
+	static bool m_bDeathSwitch; //撃破されたどうか
 	static bool m_bEntry; //ボスの登場が終わってるかどうか
 	int m_nLRPos; //左右のどちらにいるか
 	float m_fRotSpeed; //回転速度

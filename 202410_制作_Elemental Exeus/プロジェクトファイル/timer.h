@@ -15,7 +15,7 @@
 
 static const int NUM_TIME = 3;
 static const int MAX_TIMESPEED = 60;
-static const int TEX_TIME_INTERVAL = 25;
+static const int TEX_TIME_INTERVAL = 18;
 
 //アイテムオブジェクトクラス
 class CTimer : public CObject2D
@@ -34,12 +34,14 @@ public:
 
 private:
 	static int m_nTime;
-	int m_nTimerCnt;
+	static int m_nDisplayTime;
+	static int m_nTimerCnt;
 	bool bUpdateTime;
 	bool bUse[NUM_TIME];
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;
 	LPDIRECT3DTEXTURE9 m_pTexBuff;
 	D3DXVECTOR3 m_nPos;
+	D3DXVECTOR3 m_nSize;
 };
 
 #endif

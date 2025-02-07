@@ -17,7 +17,7 @@
 #define SCORE_NUM_SPACE (70) //スコア数字間隔
 #define SCORE_NUM_SCALEX (45) //スコア数字大きさ X
 #define SCORE_NUM_SCALEY (40) //スコア数字大きさ Y
-#define MAX_SCORE (40)//スコアの最大表示数
+#define MAX_SCORE (30)//スコアの最大表示数
 
 class CRanking :public CObject2D
 {

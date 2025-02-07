@@ -11,6 +11,7 @@
 #include "score.h"
 #include "camera.h"
 #include "scene.h"
+#include "3dtornado.h"
 
 
 //======================
@@ -150,6 +151,7 @@ void C3dtornadoeffect::Update()
 			{
 				m_nPatternAnimExpl = 12;
 			}
+
 
 
 		}

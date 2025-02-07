@@ -51,6 +51,9 @@ HRESULT C3dslashwind::Init()
     return S_OK;
 }
 
+//======================
+// I—¹ˆ—
+//======================
 void C3dslashwind::Uninit()
 {
     // ‚·‚Å‚É‰ð•ú‚³‚ê‚Ä‚¢‚éê‡‚Íˆ—‚ðƒXƒLƒbƒv
@@ -160,8 +163,8 @@ void C3dslashwind::Update()
             {
                 if (Pos.x >= EnemyPos.x - 50
                      && Pos.x <= EnemyPos.x + 50
-                    && Pos.y >= EnemyPos.y - 30
-                    && Pos.y <= EnemyPos.y + 30
+                    && Pos.y >= EnemyPos.y - 70
+                    && Pos.y <= EnemyPos.y + 70
                     && Pos.z >= EnemyPos.z - 10
                     && Pos.z <= EnemyPos.z + 10)
                 {
@@ -193,13 +196,13 @@ void C3dslashwind::Update()
             {
                 if (Pos.x >= EnemyPos.x - 50
                     && Pos.x <= EnemyPos.x + 50
-                    && Pos.y >= EnemyPos.y - 30
-                    && Pos.y <= EnemyPos.y + 30
+                    && Pos.y >= EnemyPos.y - 70
+                    && Pos.y <= EnemyPos.y + 70
                     && Pos.z >= EnemyPos.z - 10
                     && Pos.z <= EnemyPos.z + 10)
                 {
                     m_bDisplay = false;
-                    p3denemyair->EnemyDamage();
+                    p3denemyair->EnemyDamage(2);
                     C3dhiteffect::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y + 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(90.0f, 90.0f, 0.0f), m_rot);
                     Uninit();
                     return;
@@ -244,7 +247,7 @@ void C3dslashwind::Update()
     //’e‚Æ“G‚Ì“–‚½‚è”»’è
     for (int nCntObj = 0; nCntObj < C3dslashwind::MAX_SLASHWIND; nCntObj++)
     {
-        CObject* pObj = CObject::GetObj(3, nCntObj);
+        CObject* pObj = CObject::GetObj(4, nCntObj);
 
         if (pObj != nullptr)
         {
@@ -546,7 +549,7 @@ void C3dslashwind::LoadBlockData(void)
         m_aModel[nCnt].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
         m_aModel[nCnt].nLife = 4;
         m_aModel[nCnt].nIdxModelParent = CModel::m_aLoadEnemy[nCnt].parent;
-        m_aModel[nCnt].bUse = true;
+        m_aModel[nCnt].bUse = false;
 
         //“G‚Ì—§‚¿ˆÊ’u‰Šú‰»
         //m_nPos = D3DXVECTOR3(-0.0f, -0.0f, 0.0f);

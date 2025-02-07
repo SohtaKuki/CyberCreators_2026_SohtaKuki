@@ -36,6 +36,9 @@ private:
 	float m_fEndPos; //フォグの終了地点
 	float m_fFogDisity; //フォグの密度
 	float m_fDistance;
+	D3DXVECTOR3 m_targetPosV;
+	D3DXVECTOR3 m_targetPosR;
+	float m_followSpeed;
 	
 };
 

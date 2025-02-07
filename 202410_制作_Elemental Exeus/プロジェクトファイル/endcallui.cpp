@@ -9,6 +9,7 @@
 #include "endcallui.h"
 #include "3dgoalobj.h"
 
+int CEndCallUI::m_nEndPhase = CEndCallUI::END_PHASE_NUM::END_PHASE_START;
 bool CEndCallUI::m_bUse[NUM_ICON] = {};
 bool CEndCallUI::m_bEndComplete = true;
 
@@ -31,6 +32,7 @@ CEndCallUI::CEndCallUI(int nPriority) : CObject2D(nPriority)
     m_bAlphaSwitch = false;
     m_bImageSwitch = false;
     m_bEndComplete = true;
+    m_nEndPhase = CEndCallUI::END_PHASE_NUM::END_PHASE_START;
 }
 
 //============================
@@ -206,6 +208,7 @@ void CEndCallUI::Update()
 
     if (m_bUse[CEndCallUI::ICON_SUCCESS] == true)
     {
+        m_nEndPhase = CEndCallUI::END_PHASE_NUM::END_PHASE_1;
         CScene::UpdateSwitch(0);
         m_bEndComplete = false;
 
@@ -216,6 +219,7 @@ void CEndCallUI::Update()
 
         if (m_nPos[CEndCallUI::ICON_SUCCESS].y >= 160.0f)
         {
+            m_nEndPhase = CEndCallUI::END_PHASE_NUM::END_PHASE_2;
             m_nPos[CEndCallUI::ICON_SUCCESS].y = 160.0f;
             m_nMissonAnim++;
 
@@ -235,6 +239,7 @@ void CEndCallUI::Update()
     //================
     if (m_bUse[CEndCallUI::ICON_FAILED] == true)
     {
+        m_nEndPhase = CEndCallUI::END_PHASE_NUM::END_PHASE_1;
         CScene::UpdateSwitch(0);
         m_bEndComplete = false;
 
@@ -250,6 +255,7 @@ void CEndCallUI::Update()
 
             if (m_nMissonAnim == 160)
             {
+                m_nEndPhase = CEndCallUI::END_PHASE_NUM::END_PHASE_2;
                 m_bEndComplete = true;
                 CManager::GetFade()->SetFade(CScene::MODE_RESULTFAIL);
                 C3dgoalobj::ResetStageNum();
@@ -262,6 +268,7 @@ void CEndCallUI::Update()
 
     if (m_bUse[CEndCallUI::ICON_SPSUCCESS] == true)
     {
+        m_nEndPhase = CEndCallUI::END_PHASE_NUM::END_PHASE_1;
         CScene::UpdateSwitch(0);
         m_bEndComplete = false;
 
@@ -272,6 +279,7 @@ void CEndCallUI::Update()
 
         if (m_nPos[CEndCallUI::ICON_SPSUCCESS].y >= 160.0f)
         {
+            m_nEndPhase = CEndCallUI::END_PHASE_NUM::END_PHASE_2;
             m_nPos[CEndCallUI::ICON_SPSUCCESS].y = 160.0f;
             m_nMissonAnim++;
 
@@ -331,26 +339,6 @@ void CEndCallUI::SetAlpha(int nAlpha)
 
     for (nCntBG = 0; nCntBG < NUM_ICON; nCntBG++)
     {
-
-        //if (nCntBG == 0)
-        //{
-        //    m_aPosTexV[nCntBG] -= 0.00f;
-        //}
-        //else if (nCntBG == 1)
-        //{
-        //    m_aPosTexV[nCntBG] -= 0.003f;
-        //}
-        //else if (nCntBG == 2)
-        //{
-        //    m_aPosTexV[nCntBG] -= 0.0020f;
-        //}
-
-        ////テクスチャ座標の設定
-        //pVtx[0].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG], m_aPosTexV[nCntBG]);
-        //pVtx[1].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG] + 1.0f, m_aPosTexV[nCntBG]);
-        //pVtx[2].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG], m_aPosTexV[nCntBG] + 1.0f);
-        //pVtx[3].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG] + 1.0f, m_aPosTexV[nCntBG] + 1.0f);
-
         pVtx[0].pos = D3DXVECTOR3((m_nPos[nCntBG].x - m_nSize[nCntBG].x), m_nPos[nCntBG].y, 0.0f);
         pVtx[1].pos = D3DXVECTOR3((m_nPos[nCntBG].x + m_nSize[nCntBG].x), m_nPos[nCntBG].y, 0.0f);
         pVtx[2].pos = D3DXVECTOR3((m_nPos[nCntBG].x - m_nSize[nCntBG].x), m_nPos[nCntBG].y + m_nSize[nCntBG].y, 0.0f);

@@ -96,7 +96,7 @@ void CBossui::Update()
 			pVtx[3].pos = D3DXVECTOR3(m_nPos.x + m_nSize.x, m_nPos.y + m_nSize.y, 0.0f);
 		}
 
-		if (C3dboss::GetBossEntry() == false)
+		if (C3dboss::GetBossEntry() == false || C3dboss::GetBossDeathState() == true)
 		{
 			for (int nCnt = 0; nCnt < 4; nCnt++)
 			{

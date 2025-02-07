@@ -131,7 +131,7 @@ void C3dslashwindBoss::Update()
                 D3DXVECTOR3 PlayerPos = p3dplayer->GetPos();
 
                 //“G‚Ìê‡
-                if (type == CObject::TYPE::PLAYER)
+                if (type == CObject::TYPE::PLAYER && C3dboss::GetBossLife() > 0)
                 {
                     if (Pos.x >= PlayerPos.x - 75
                         && Pos.x <= PlayerPos.x + 75

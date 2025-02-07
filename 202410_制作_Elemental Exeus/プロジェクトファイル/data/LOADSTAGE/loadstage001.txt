@@ -64,6 +64,72 @@ STAGESET
 	
 	OBJECTSET
 		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 0.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 80.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 160.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 240.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 320.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 400.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 480.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 560.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 640.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 720.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
+		POS = -100.0 800.0 0.0	
+		OBJ_TYPE2 = 0
+	END_OBJECTSET
+	
+	OBJECTSET
+		OBJ_TYPE = 2					#通常ブロック 
 		POS = 0.0 0.0 0.0	
 		OBJ_TYPE2 = 0
 	END_OBJECTSET

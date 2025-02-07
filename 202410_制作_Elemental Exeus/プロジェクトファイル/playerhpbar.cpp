@@ -86,8 +86,6 @@ void CPlayerHpBar::Uninit()
 //======================
 void CPlayerHpBar::Update()
 {
-
-
     // 現在の残量値を補間更新する
     float playerLife = C3dplayer::GetPlayerLife();
     float BossLife = C3dboss::GetBossLife();
@@ -107,6 +105,7 @@ void CPlayerHpBar::Update()
     //頂点バッファをロックし、頂点情報へのポインタを取得
     CObject2D::GetBuff()->Lock(0, 0, (void**)&pVtx, 0);
 
+    //ゲージの背後にある半透明赤のやつ
     if (m_nBarType == 0 || m_nBarType == 1)
     {
         pVtx[0].col = D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.8f);
@@ -115,6 +114,7 @@ void CPlayerHpBar::Update()
         pVtx[3].col = D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.8f);
     }
 
+    //通常のゲージ
     if (m_nBarType == 2 || m_nBarType == 3 || m_nBarType == 4 || m_nBarType == 5)
     {
         pVtx[0].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);

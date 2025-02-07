@@ -165,7 +165,6 @@ void CBuffUI::Uninit()
 void CBuffUI::Update()
 {
 
-
     if (m_bAlphaSwitch == false)
     {
         m_nAlphaCnt--;

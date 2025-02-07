@@ -88,7 +88,7 @@ public:
 	static HRESULT Load();
 	static void Unload();
 	void LoadPlayerData();
-	void EnemyDamage();
+	void EnemyDamage(int nDamage);
 	//void OldPlayerPos() { m_nPos = m_nOld3DPlayerPos; }
 	//void OldPlayerPosZ() { m_nPos.z = m_nOld3DPlayerPos.z; }
 	D3DXVECTOR3& GetEnemyPos() { return m_nOld3DEnemyPos; }//ç¿ïWÇÃéÊìæ

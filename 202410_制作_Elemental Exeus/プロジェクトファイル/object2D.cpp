@@ -134,6 +134,7 @@ void CObject2D::Draw()
  	pDevice->SetTexture(0, m_pTexBuff);
 
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 }
 
 //======================

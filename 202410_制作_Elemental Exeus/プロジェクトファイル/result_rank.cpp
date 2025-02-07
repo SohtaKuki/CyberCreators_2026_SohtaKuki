@@ -164,22 +164,22 @@ void CResultRank::Update()
         m_bUse[RANK_D] = true;
     }
 
-    if (CScore::GetScore() >= 50000 && CScore::GetScore() <= 80000)
+    if (CScore::GetScore() >= 50000 && CScore::GetScore() <= 115000)
     {
         m_bUse[RANK_C] = true;
     }
 
-    if (CScore::GetScore() >= 80000 && CScore::GetScore() <= 115000)
+    if (CScore::GetScore() >= 115000 && CScore::GetScore() <= 155000)
     {
         m_bUse[RANK_B] = true;
     }
 
-    if (CScore::GetScore() >= 115000 && CScore::GetScore() <= 175000)
+    if (CScore::GetScore() >= 155000 && CScore::GetScore() <= 205000)
     {
         m_bUse[RANK_A] = true;
     }
 
-    if (CScore::GetScore() >= 175000)
+    if (CScore::GetScore() >= 205000)
     {
         m_bUse[RANK_S] = true;
     }

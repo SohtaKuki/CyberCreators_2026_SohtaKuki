@@ -1,12 +1,133 @@
-﻿  3dslashwind.cpp
+﻿  3dboss.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3dmoveblock.h(16,1): warning C4005: 'NUM_MODEL': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\objectX.h(14): message : 'NUM_MODEL' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\startobj.h(17,1): warning C4005: 'NUM_MODEL': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dmoveblock.h(16): message : 'NUM_MODEL' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\endcallui.h(14,1): warning C4005: 'NUM_ICON': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dbuffui.h(14): message : 'NUM_ICON' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(16,1): warning C4005: 'MAX_KEYSET': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(16): message : 'MAX_KEYSET' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\bossname_entry.h(14,1): warning C4005: 'NUM_ICON': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\endcallui.h(14): message : 'NUM_ICON' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.cpp(243,23): warning C4244: '引数': 'time_t' から 'unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.cpp(270,32): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.cpp(1161,80): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.cpp(1372,27): warning C4101: 'aElements': ローカル変数は 1 度も使われていません。
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.cpp(1774,110): warning C4244: '引数': 'const int' から 'FLOAT' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.cpp(1775,110): warning C4244: '引数': 'const int' から 'FLOAT' への変換です。データが失われる可能性があります。
+  3dbullet.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  3dchargebullet.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  3denemy.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dtornado_effect.h(28,32): warning C4244: '初期化中': 'double' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.cpp(795,110): warning C4244: '引数': 'const int' から 'FLOAT' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.cpp(796,110): warning C4244: '引数': 'const int' から 'FLOAT' への変換です。データが失われる可能性があります。
+  3denemy_air.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy_air.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy_air.cpp(764,110): warning C4244: '引数': 'const int' から 'FLOAT' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy_air.cpp(765,110): warning C4244: '引数': 'const int' から 'FLOAT' への変換です。データが失われる可能性があります。
+  3dexplosion.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  3dexplosion_sub.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  3dfireeffect.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3dfireeffect.h(27,32): warning C4244: '初期化中': 'double' から 'const int' への変換です。データが失われる可能性があります。
 C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
 C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
 C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(16,1): warning C4005: 'MAX_KEYSET': マクロが再定義されました。
 C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(16): message : 'MAX_KEYSET' の以前の定義を確認してください
 C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
 C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  3dgoalobj.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(16,1): warning C4005: 'MAX_KEYSET': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(16): message : 'MAX_KEYSET' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  3dhiteffect.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  3dplayer.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3dmoveblock.h(16,1): warning C4005: 'NUM_MODEL': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\objectX.h(14): message : 'NUM_MODEL' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\startobj.h(17,1): warning C4005: 'NUM_MODEL': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dmoveblock.h(16): message : 'NUM_MODEL' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\endcallui.h(14,1): warning C4005: 'NUM_ICON': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dbuffui.h(14): message : 'NUM_ICON' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(16,1): warning C4005: 'MAX_KEYSET': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(16): message : 'MAX_KEYSET' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dtornado_effect.h(28,32): warning C4244: '初期化中': 'double' から 'const int' への変換です。データが失われる可能性があります。
 C:\Users\student\Desktop\ProjectC++_phase2\3denemy_air.h(16,1): warning C4005: 'MAX_KEYSET': マクロが再定義されました。
 C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(16): message : 'MAX_KEYSET' の以前の定義を確認してください
 C:\Users\student\Desktop\ProjectC++_phase2\3denemy_air.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
 C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.cpp(875,80): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.cpp(1652,110): warning C4244: '引数': 'const int' から 'FLOAT' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.cpp(1653,110): warning C4244: '引数': 'const int' から 'FLOAT' への変換です。データが失われる可能性があります。
+  3dtornado_effect.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3dtornado_effect.h(28,32): warning C4244: '初期化中': 'double' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  block.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\block.cpp(59,6): warning C4101: 'nCntExplosion': ローカル変数は 1 度も使われていません。
+  bullet.cpp
+  enemy.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\enemy.cpp(59,6): warning C4101: 'nCntExplosion': ローカル変数は 1 度も使われていません。
+  item.cpp
+  manager.cpp
+  player.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\player.cpp(57,6): warning C4101: 'nCntExplosion': ローカル変数は 1 度も使われていません。
+  ranking.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\ranking.cpp(290,21): warning C4101: 'nCountRank2': ローカル変数は 1 度も使われていません。
+  result_TimebonusScore.cpp
+  コードを生成中...
+  コンパイル中...
+  result_bonusHPscore.cpp
+  result_rank.cpp
+  resultscore.cpp
+  scene.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\startcallui.h(14,1): warning C4005: 'NUM_ICON': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dbuffui.h(14): message : 'NUM_ICON' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\tutorialui.h(13,1): warning C4005: 'PAUSE_SELECT_NUM': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\stageselect.h(13): message : 'PAUSE_SELECT_NUM' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(16,1): warning C4005: 'MAX_KEYSET': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(16): message : 'MAX_KEYSET' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\bossname_entry.h(14,1): warning C4005: 'NUM_ICON': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\startcallui.h(14): message : 'NUM_ICON' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\bossatk_UI.h(14,1): warning C4005: 'NUM_ICON': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\bossname_entry.h(14): message : 'NUM_ICON' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dfireeffect.h(27,32): warning C4244: '初期化中': 'double' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\ProjectC++_phase2\tornado_reloadUI.h(14,1): warning C4005: 'NUM_ICON': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\bossatk_UI.h(14): message : 'NUM_ICON' の以前の定義を確認してください
+  score.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(16,1): warning C4005: 'MAX_KEYSET': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(16): message : 'MAX_KEYSET' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dboss.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  stagemanager.cpp
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3dmoveblock.h(16,1): warning C4005: 'NUM_MODEL': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\objectX.h(14): message : 'NUM_MODEL' の以前の定義を確認してください
+C:\Users\student\Desktop\ProjectC++_phase2\3denemy_air.h(17,1): warning C4005: 'MAX_MOTION': マクロが再定義されました。
+C:\Users\student\Desktop\ProjectC++_phase2\3dplayer.h(17): message : 'MAX_MOTION' の以前の定義を確認してください
+  timer.cpp
+  コードを生成中...
   Project52.vcxproj -> C:\Users\student\Desktop\ProjectC++_phase2\x64\Debug\ProjectC++_phase2.exe

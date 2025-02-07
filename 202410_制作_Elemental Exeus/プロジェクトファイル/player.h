@@ -16,7 +16,7 @@ static const float Angle_value2(0.75f); //ポリゴン角度調整(値2)
 static const float Angle_value3(0.35f); //ポリゴン角度調整 (値3)
 static const float Length_value1(3.0f); //ポリゴン長さ調整 (値1)
 static const float Length_value2(0.0f); //ポリゴン長さ調整 (値2)
-static const float Attenuation_value(0.10f); //ポリゴン移動量減衰係数
+static const float Attenuation_value(0.115f); //ポリゴン移動量減衰係数
 
 //オブジェクト2Dクラス
 class CPlayer :public CObject2D

@@ -209,10 +209,10 @@ void C3denemy::Update()
             }
         }
 
-
+        //“G‚Ì‘Ì—Í‚ª0‚É‚È‚Á‚½ê‡
         if (m_nLife <= 0)
         {
-            C3dexplosionsub::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y - 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(100.0f, 140.0f, 0.0f), m_rot, 0);
+            C3dexplosionsub::Create(D3DXVECTOR3(CObject3D::GetPos().x - 10.0f, CObject3D::GetPos().y - 70.0f, CObject3D::GetPos().z), D3DXVECTOR3(150.0f, 190.0f, 0.0f), m_rot, 0);
             CScore::AddScore(17000);
             Uninit();
             return;

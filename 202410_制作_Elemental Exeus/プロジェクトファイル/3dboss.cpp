@@ -39,6 +39,7 @@
 LPDIRECT3DTEXTURE9 C3dboss::m_pTexBuff = nullptr;
 int C3dboss::m_nLife = 0;
 bool C3dboss::m_bEntry = false;
+bool C3dboss::m_bDeathSwitch = false;
 D3DXVECTOR3 C3dboss::m_nPos = {};
 D3DVERTEXELEMENT9 C3dboss::m_aElements[MAX_FVF_DECL_SIZE] = {};
 D3DXVECTOR3 C3dboss::m_rot = {};
@@ -69,6 +70,7 @@ C3dboss::C3dboss(int nPriority) : CModel(nPriority)
     m_bEntry = false;
     m_nBossDmgColorTimer = 0;
     m_bBossDMGState = false;
+    m_bDeathSwitch = false;
 }
 
 //======================
@@ -240,6 +242,16 @@ void C3dboss::Update()
 
             srand(time(0));
 
+#ifndef DEBUG_
+
+
+            if (CManager::GetKeyboard()->GetTrigger(DIK_V))
+            {
+                m_nACTIONTimer = 0;
+                m_nACTIONTimer = 120;
+                random_number = BOSSACTION::ACTION_SHORTMELEE;
+            }
+#endif
 
             CObject* pObjPos = CObject::GetObj(3, 1);
 
@@ -899,7 +911,7 @@ void C3dboss::Update()
                             if (Pos.x >= PlayerPos.x - 300
                                 && Pos.x <= PlayerPos.x + 300
                                 && Pos.y >= PlayerPos.y - 170
-                                && Pos.y <= PlayerPos.y + 170
+                                && Pos.y <= PlayerPos.y + 90
                                 && Pos.z >= PlayerPos.z - 20
                                 && Pos.z <= PlayerPos.z + 20)
                             {
@@ -1139,7 +1151,7 @@ void C3dboss::Update()
                         {
                             C3dmoveblock* p3dmoveblock = (C3dmoveblock*)pObj;
 
-                            m_bIsCollision = p3dmoveblock->Collision3DMoveblock(&Pos, &m_nOld3DBossPos, &m_n3DBossMove, 10.0f, 50.0f);
+                            m_bIsCollision = p3dmoveblock->Collision3DMoveblock(&Pos, &m_nOld3DBossPos, &m_n3DBossMove, 10.0f, 4.0f);
 
                             if (m_bIsCollision == true)
                             {
@@ -1211,7 +1223,7 @@ void C3dboss::Update()
         {
             if (m_nMotionCnt == 1 && m_nFrameCnt == 0)
             {
-                CScore::AddScore(20000);
+                CScore::AddScore(60000);
             }
 
             if (m_nMotionCnt == 2 && m_nFrameCnt == 25)
@@ -1225,6 +1237,11 @@ void C3dboss::Update()
             {
                 bUse = false;
                 
+            }
+
+            if (m_nMotionCnt == 3 && m_nFrameCnt == 5)
+            {
+                m_bDeathSwitch = true;
             }
 
         }

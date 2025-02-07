@@ -53,21 +53,19 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 
 	d3dpp.BackBufferWidth = SCREEN_WIDTH;						
 	d3dpp.BackBufferHeight = SCREEN_HEIGHT;						
-	d3dpp.BackBufferFormat = d3ddm.Format;						
+	d3dpp.BackBufferFormat = d3ddm.Format;		
 	d3dpp.BackBufferCount = 1;									
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;					
 	d3dpp.EnableAutoDepthStencil = TRUE;						
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;					
 	d3dpp.Windowed = bWindow;									
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;	
-	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;	
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_ONE;
 
-	
 	if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,hWnd,D3DCREATE_HARDWARE_VERTEXPROCESSING,&d3dpp,&m_pD3DDevice)))
 	{
 
 	}
-
 	m_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);

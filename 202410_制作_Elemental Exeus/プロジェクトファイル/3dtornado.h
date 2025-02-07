@@ -52,7 +52,7 @@ public:
 		TORNADO_MAX
 	}TORNADO_STATE;
 
-	C3dtornado(int nPriority = 3);
+	C3dtornado(int nPriority = 4);
 	~C3dtornado() override;
 	HRESULT Init()override;
 	void Uninit()override;

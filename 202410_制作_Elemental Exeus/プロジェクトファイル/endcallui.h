@@ -16,7 +16,7 @@
 class CEndCallUI : public CObject2D
 {
 public:
-	//UI表示構造体
+	//テクスチャ表示構造体
 	typedef enum
 	{
 		ICON_SUCCESS = 0,
@@ -33,6 +33,15 @@ public:
 		UI_MAX,
 	}UIDISPLAY;
 
+	//表示段階構造体
+	typedef enum
+	{
+		END_PHASE_START,
+		END_PHASE_1,
+		END_PHASE_2,
+		END_PHASE_MAX,
+	}END_PHASE_NUM;
+
 	CEndCallUI(int nPriority = 22);
 	~CEndCallUI() override;
 	HRESULT Init() override;
@@ -44,6 +53,7 @@ public:
 	static CEndCallUI* Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
 	static bool DisplayEndCallUI(int nDisplayID, int DisplayOption);
 	static bool GetEndStat() { return m_bEndComplete; }
+	static int GetEndPhase() { return m_nEndPhase; }
 private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;
 	LPDIRECT3DTEXTURE9 m_pEndTexBuff[NUM_ICON];
@@ -57,6 +67,7 @@ private:
 	bool m_bAlphaSwitch;
 	bool m_bImageSwitch;
 	static bool m_bEndComplete;
+	static int m_nEndPhase;
 };
 
 #endif

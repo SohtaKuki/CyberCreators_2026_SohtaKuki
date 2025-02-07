@@ -25,6 +25,9 @@ public:
 private:
 	LPDIRECT3D9 m_pD3D;
 	LPDIRECT3DDEVICE9 m_pD3DDevice;
+	float m_frameTime;
+	LARGE_INTEGER m_lastTime;
+	LARGE_INTEGER m_frequency;
 };
 
 #endif

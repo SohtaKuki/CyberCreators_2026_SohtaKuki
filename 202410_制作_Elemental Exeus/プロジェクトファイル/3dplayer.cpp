@@ -529,7 +529,7 @@ void C3dplayer::Update()
                             if (m_rot.y >= -1.6f && m_rot.y <= -0.1f)
                             {
                                 C3dtornado::Create(D3DXVECTOR3(Pos.x + 60.0f, Pos.y, Pos.z), (0));
-                                C3dtornadoeffect::Create(D3DXVECTOR3(Pos.x + 60.0f, Pos.y - 20.0f, Pos.z), D3DXVECTOR3(65.0f, 85.0f, 0.0f), m_rot, 0);
+                                C3dtornadoeffect::Create(D3DXVECTOR3(Pos.x + 60.0f, Pos.y - 20.0f, Pos.z), D3DXVECTOR3(95.0f, 115.0f, 0.0f), m_rot, 0);
                                 MotionUse = false;
                                 SetPlayerMotion(MOTION_TORNADO);
                                 MotionUse = true;
@@ -539,7 +539,7 @@ void C3dplayer::Update()
                             if (m_rot.y >= 0.1f && m_rot.y <= 1.6f)
                             {
                                 C3dtornado::Create(D3DXVECTOR3(Pos.x - 60.0f, Pos.y, Pos.z), (0));
-                                C3dtornadoeffect::Create(D3DXVECTOR3(Pos.x - 60.0f, Pos.y - 20.0f, Pos.z), D3DXVECTOR3(65.0f, 85.0f, 0.0f), m_rot, 0);
+                                C3dtornadoeffect::Create(D3DXVECTOR3(Pos.x - 60.0f, Pos.y - 20.0f, Pos.z), D3DXVECTOR3(95.0f, 115.0f, 0.0f), m_rot, 0);
                                 MotionUse = false;
                                 SetPlayerMotion(MOTION_TORNADO);
                                 MotionUse = true;
@@ -636,8 +636,16 @@ void C3dplayer::Update()
             //ƒvƒŒƒCƒ„[‚ª—Ž‰º‚µ‚½Û‚Ìˆ—
             if (Pos.y <= -300.0f)
             {
+                if (C3dgoalobj::GetStageNum() == 0)
+                {
+                    Pos.x = 0.0f;
+                    Pos.y = 11.0f;
+                }
 
-                CEndCallUI::DisplayEndCallUI(CEndCallUI::ICONDISPLAY::ICON_FAILED, CEndCallUI::UIDISPLAY::UI_DISPLAY);
+                if (C3dgoalobj::GetStageNum() == 1 || C3dgoalobj::GetStageNum() == 2)
+                {
+                    CEndCallUI::DisplayEndCallUI(CEndCallUI::ICONDISPLAY::ICON_FAILED, CEndCallUI::UIDISPLAY::UI_DISPLAY);
+                }
                 //Uninit();
             }
 
@@ -787,7 +795,7 @@ void C3dplayer::Update()
                     {
                         CObject::TYPE type = pObj->GetType();
 
-                        if (type == CObject::TYPE::BOSS)
+                        if (type == CObject::TYPE::BOSS && C3dboss::GetBossLife() >= 0)
                         {
                             C3dboss* p3dboss = (C3dboss*)pObj;
 
@@ -857,7 +865,7 @@ void C3dplayer::Update()
                         {
                             C3dmoveblock* p3dmoveblock = (C3dmoveblock*)pObj;
 
-                            m_bIsCollision = p3dmoveblock->Collision3DMoveblock(&Pos, &m_nOld3DPlayerPos, &m_n3DPlayerMove, 20.0f, 50.0f);
+                            m_bIsCollision = p3dmoveblock->Collision3DMoveblock(&Pos, &m_nOld3DPlayerPos, &m_n3DPlayerMove, 20.0f, 40.0f);
 
                             if (m_bIsCollision == true)
                             {

@@ -1,6 +1,6 @@
 //=================================================
 //
-// ポリゴンの描画処理 (main.cpp)
+// メイン処理 (main.cpp)
 // Author: Sohta Kuki
 //
 //=================================================
@@ -17,6 +17,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 CManager* g_pManager = nullptr;
 bool g_isFullscreen = false;  // フルスクリーンフラグ
 RECT g_windowRect = {};       // ウィンドウモードのサイズと位置を保存
+bool g_isTabPressed = false;  // TABキーが押されているかどうかのフラグ
 
 //======================
 // メイン関数
@@ -43,6 +44,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
     MSG msg;
 
     RECT rect = { 0,0,SCREEN_WIDTH,SCREEN_HEIGHT };  // 画面サイズの構造体
+
+
 
     // ウィンドウクラスの登録
     RegisterClassEx(&wcex);
@@ -83,7 +86,20 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
         else
         {
             // レンダラー更新
-            g_pManager->Update();
+            if (g_isTabPressed)
+            {
+#if _DEBUG
+                // TABキーが押されている場合は3回更新 (ゲーム速度3倍速)
+                g_pManager->Update();
+                g_pManager->Update();
+                g_pManager->Update();
+#endif 
+            }
+            //通常時
+            else
+            {
+                g_pManager->Update();
+            }
 
             // レンダラー描画
             g_pManager->Draw();
@@ -127,17 +143,17 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             //タイトル画面内かどうか
             if (CTitle::GetTitleState() == true)
             {
-                 DestroyWindow(hWnd); //ゲーム終了
+                DestroyWindow(hWnd); //ゲーム終了
             }
 
             //デバック時のみEscキーで即ゲーム終了できるようにする
-            #if _DEBUG
+#if _DEBUG
             nID = MessageBox(hWnd, "ゲームを終了しますか？\n※保存されていないデータは失われます。", "終了確認", MB_YESNO | MB_ICONQUESTION);
             if (nID == IDYES)
             {
                 DestroyWindow(hWnd);
             }
-            #endif 
+#endif 
 
             break;
 
@@ -166,6 +182,23 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
 
             g_isFullscreen = !g_isFullscreen;
+            break;
+#if _DEBUG
+        // TABキーが押された場合ゲーム速度を3倍速にする
+        case VK_TAB:
+            g_isTabPressed = true;
+            break;
+#endif 
+        }
+        break;
+
+
+    case WM_KEYUP:
+        switch (wParam)
+        {
+            // TABキーが離された時の処理
+        case VK_TAB:
+            g_isTabPressed = false;
             break;
         }
         break;

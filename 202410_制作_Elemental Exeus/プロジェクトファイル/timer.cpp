@@ -1,6 +1,6 @@
 //=================================================
 //
-// アイテムの処理 (timer.cpp)
+// タイマー処理 (timer.cpp)
 // Author: Sohta Kuki
 //
 //=================================================
@@ -14,20 +14,22 @@
 #include "block.h"
 #include "scene.h"
 #include "endcallui.h"
+#include "3dgoalobj.h"
 
-int CTimer::m_nTime = 0;
+int CTimer::m_nTime = {};
+int CTimer::m_nDisplayTime = {};
+int CTimer::m_nTimerCnt = {};
 
 //============================
 //コンストラクタ
 //============================
 CTimer::CTimer(int nPriority) : CObject2D(nPriority)
 {
-	m_nTime = 0;
-	m_nTimerCnt = 0;
+
 	bUpdateTime = false;
 	for (int nCntTime = 0; nCntTime < 3; nCntTime++)
 	{
-		bUse[nCntTime] = false;
+		bUse[nCntTime] = true;
 	}
 }
 
@@ -39,8 +41,9 @@ CTimer::~CTimer()
 
 }
 
+
 //============================
-//アイテムの初期化処理
+//タイマーの初期化処理
 //============================
 HRESULT CTimer::Init()
 {
@@ -62,28 +65,29 @@ HRESULT CTimer::Init()
 	VERTEX_2D* pVtx;
 
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
 	for (int nCntTime = 0; nCntTime < NUM_TIME; nCntTime++)
 	{
-		//頂点座標を設定
-		pVtx[0].pos = D3DXVECTOR3(600.0f + (nCntTime * TEX_TIME_INTERVAL), 70.0f, 0.0f);
-		pVtx[1].pos = D3DXVECTOR3(630.0f + (nCntTime * TEX_TIME_INTERVAL), 70.0f, 0.0f);
-		pVtx[2].pos = D3DXVECTOR3(600.0f + (nCntTime * TEX_TIME_INTERVAL), 100.0f, 0.0f);
-		pVtx[3].pos = D3DXVECTOR3(630.0f + (nCntTime * TEX_TIME_INTERVAL), 100.0f, 0.0f);
+		float offset = (nCntTime == 0) ? -10.0f : 0.0f; // 3桁目だけ左に10ピクセルずらす
 
-		//rhwの設定
+		// 頂点座標を設定
+		pVtx[0].pos = D3DXVECTOR3(m_nPos.x + (nCntTime * TEX_TIME_INTERVAL) + offset, m_nPos.y, 0.0f);
+		pVtx[1].pos = D3DXVECTOR3(m_nPos.x + m_nSize.x + (nCntTime * TEX_TIME_INTERVAL) + offset, m_nPos.y, 0.0f);
+		pVtx[2].pos = D3DXVECTOR3(m_nPos.x + (nCntTime * TEX_TIME_INTERVAL) + offset, m_nPos.y + m_nSize.y, 0.0f);
+		pVtx[3].pos = D3DXVECTOR3(m_nPos.x + m_nSize.x + (nCntTime * TEX_TIME_INTERVAL) + offset, m_nPos.y + m_nSize.y, 0.0f);
+
+		// rhwの設定
 		pVtx[0].rhw = 1.0f;
 		pVtx[1].rhw = 1.0f;
 		pVtx[2].rhw = 1.0f;
 		pVtx[3].rhw = 1.0f;
 
-		//頂点カラーの設定
-		pVtx[0].col = D3DCOLOR_RGBA(0, 0, 0, 255);
-		pVtx[1].col = D3DCOLOR_RGBA(0, 0, 0, 255);
-		pVtx[2].col = D3DCOLOR_RGBA(0, 0, 0, 255);
-		pVtx[3].col = D3DCOLOR_RGBA(0, 0, 0, 255);
+		// 頂点カラーの設定
+		pVtx[0].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+		pVtx[1].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+		pVtx[2].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+		pVtx[3].col = D3DCOLOR_RGBA(255, 255, 255, 255);
 
-		//テクスチャ座標の設定
+		// テクスチャ座標の設定
 		pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
 		pVtx[1].tex = D3DXVECTOR2(0.1f, 0.0f);
 		pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
@@ -92,6 +96,7 @@ HRESULT CTimer::Init()
 		pVtx += 4;
 	}
 
+
 	//頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();
 
@@ -99,7 +104,7 @@ HRESULT CTimer::Init()
 }
 
 //============================
-//アイテムの初期化処理
+//タイマーの初期化処理
 //============================
 void CTimer::Uninit()
 {
@@ -119,7 +124,7 @@ void CTimer::Uninit()
 }
 
 //============================
-//アイテムの更新処理
+//タイマーの更新処理
 //============================
 void CTimer::Update()
 {
@@ -135,14 +140,18 @@ void CTimer::Update()
 
 			if (m_nTimerCnt == MAX_TIMESPEED)
 			{
-				m_nTime++; //時間を1秒減らす
-				m_nTimerCnt = 0; //フレームカウントリセット
+				m_nTime++; // 時間を1秒加算
+				m_nTimerCnt = 0; // フレームカウントリセット
+
+				// 分単位表示の処理を修正
+				int minutes = m_nTime / 60; // 分を計算
+				int seconds = m_nTime % 60; // 秒を計算
+				m_nDisplayTime = minutes * 100 + seconds; // 分と秒を組み合わせた表示形式に変更
 			}
 		}
 
 		if (CManager::GetKeyboard()->GetTrigger(DIK_F1))
 		{
-
 			if (bUpdateTime == false)
 			{
 				bUpdateTime = true;
@@ -158,7 +167,7 @@ void CTimer::Update()
 		}
 
 		// 時間の値をコピー
-		int CopyTime = m_nTime;
+		int CopyTime = m_nDisplayTime;
 
 		// 各桁の値を計算
 		for (int nCntTime = NUM_TIME - 1; nCntTime >= 0; nCntTime--)
@@ -167,10 +176,10 @@ void CTimer::Update()
 			CopyTime /= 10;
 		}
 
-		//頂点バッファをロックし、頂点情報へのポインタを取得
+		// 頂点バッファをロックし、頂点情報へのポインタを取得
 		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
-		//テクスチャ座標の更新
+		// テクスチャ座標の更新
 		for (int nCntTime = 0; nCntTime < NUM_TIME; nCntTime++)
 		{
 			pVtx[0].tex = D3DXVECTOR2(aPosTexU[nCntTime] / 10.0f, 0.0f);
@@ -178,49 +187,27 @@ void CTimer::Update()
 			pVtx[2].tex = D3DXVECTOR2(aPosTexU[nCntTime] / 10.0f, 1.0f);
 			pVtx[3].tex = D3DXVECTOR2((aPosTexU[nCntTime] + 1) / 10.0f, 1.0f);
 
-			////残り時間が少ない状態になったときに数字を赤くする
-			//if (m_nTime < 20)
-			//{
-			//	pVtx[0].col = D3DCOLOR_RGBA(255, 0, 0, 255);
-			//	pVtx[1].col = D3DCOLOR_RGBA(255, 0, 0, 255);
-			//	pVtx[2].col = D3DCOLOR_RGBA(255, 0, 0, 255);
-			//	pVtx[3].col = D3DCOLOR_RGBA(255, 0, 0, 255);
-			//}
 			pVtx += 4;
 		}
 
-		//頂点バッファをアンロックする
+		// 頂点バッファをアンロックする
 		m_pVtxBuff->Unlock();
 
-		//フェード状態取得
+		// フェード状態取得
 		int nFadeState = CFade::GetFadeState();
 
-		//フェードアウト時に終了処理を入れる
+		// フェードアウト時に終了処理を入れる
 		if (nFadeState == CFade::FADE_OUT)
 		{
 			Uninit();
-			m_nTime = 0;
 		}
-
-		////残り時間が0以下になった場合、終了演出を入れる
-		//if (m_nTime < 0)
-		//{
-		//	m_nTime = 0;
-		//	CEndCallUI::DisplayEndCallUI(CEndCallUI::ICONDISPLAY::ICON_FAILED, CEndCallUI::UIDISPLAY::UI_DISPLAY);
-		//}
-
-
-		//if (CManager::GetKeyboard()->GetTrigger(DIK_RETURN))
-		//{
-		//	Uninit();
-		//	CManager::GetFade()->SetFade(CScene::MODE_RESULT);
-		//	m_nTime = 0;
-		//}
 	}
 }
 
+
+
 //============================
-//アイテムの描画処理
+//タイマーの描画処理
 //============================
 void CTimer::Draw()
 {
@@ -243,9 +230,9 @@ void CTimer::Draw()
 }
 
 //============================
-//アイテムの生成処理
+//タイマーの生成処理
 //============================
-CTimer* CTimer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+CTimer* CTimer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 {
 	CTimer* pTimer;
 
@@ -253,10 +240,18 @@ CTimer* CTimer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 
 	pTimer->SetType(TYPE::TIMER);
 	pTimer->m_nPos = pos;
-	pTimer->m_rot = rot;
+	pTimer->m_nSize = size;
 
-	//アイテムの初期化
+	//タイマーの初期化
 	pTimer->Init();
+
+
+	if (C3dgoalobj::GetStageNum() == 0 || C3dgoalobj::GetStageNum() == 1)
+	{
+		m_nTimerCnt = 0;
+		m_nTime = 0;
+		m_nDisplayTime = 0;
+	}
 
 	LPDIRECT3DTEXTURE9 pTexture;
 

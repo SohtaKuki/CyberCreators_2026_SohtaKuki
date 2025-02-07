@@ -148,6 +148,7 @@ void C3dBossATKUIDiag::Update()
 			pVtx += 4;
 		}
 
+		//ボス攻撃範囲マーカーの座標＆サイズ(右)
 		if (m_nType == C3dBossATKUIDiag::ATKUI_DISPLAY::BSUI_R_DIAGATK)
 		{
 			m_nPos[m_nType].x = 110.0f;
@@ -157,6 +158,7 @@ void C3dBossATKUIDiag::Update()
 			m_nSize[m_nType].y = 320.0f;
 		}
 
+		//ボス攻撃範囲マーカーの座標＆サイズ(左)
 		if (m_nType == C3dBossATKUIDiag::ATKUI_DISPLAY::BSUI_L_DIAGATK)
 		{
 			m_nPos[m_nType].x = 0.0f;

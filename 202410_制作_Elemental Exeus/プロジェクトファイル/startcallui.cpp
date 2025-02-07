@@ -1,10 +1,3 @@
-//=================================================
-//
-// スタートコールUI表示処理 (startcallui.cpp)
-// Author: Sohta Kuki
-//
-//=================================================
-
 #include "startcallui.h"
 
 bool CStartCallUI::m_bUse[NUM_ICON] = {};
@@ -74,38 +67,40 @@ HRESULT CStartCallUI::Init()
 
     for (nCntBG = 0; nCntBG < NUM_ICON; nCntBG++)
     {
+        //頂点座標の設定
+        pVtx[0].pos = D3DXVECTOR3((m_nPos[nCntBG].x - m_nSize[nCntBG].x), m_nPos[nCntBG].y, 0.0f);
+        pVtx[1].pos = D3DXVECTOR3((m_nPos[nCntBG].x + m_nSize[nCntBG].x), m_nPos[nCntBG].y, 0.0f);
+        pVtx[2].pos = D3DXVECTOR3((m_nPos[nCntBG].x - m_nSize[nCntBG].x), m_nPos[nCntBG].y + m_nSize[nCntBG].y, 0.0f);
+        pVtx[3].pos = D3DXVECTOR3((m_nPos[nCntBG].x + m_nSize[nCntBG].x), m_nPos[nCntBG].y + m_nSize[nCntBG].y, 0.0f);
 
-            //頂点座標の設定
-            pVtx[0].pos = D3DXVECTOR3((m_nPos[nCntBG].x - m_nSize[nCntBG].x), m_nPos[nCntBG].y, 0.0f);
-            pVtx[1].pos = D3DXVECTOR3((m_nPos[nCntBG].x + m_nSize[nCntBG].x), m_nPos[nCntBG].y, 0.0f);
-            pVtx[2].pos = D3DXVECTOR3((m_nPos[nCntBG].x - m_nSize[nCntBG].x), m_nPos[nCntBG].y + m_nSize[nCntBG].y, 0.0f);
-            pVtx[3].pos = D3DXVECTOR3((m_nPos[nCntBG].x + m_nSize[nCntBG].x), m_nPos[nCntBG].y + m_nSize[nCntBG].y, 0.0f);
+        //rhwの設定
+        pVtx[0].rhw = 1.0f;
+        pVtx[1].rhw = 1.0f;
+        pVtx[2].rhw = 1.0f;
+        pVtx[3].rhw = 1.0f;
 
-            //rhwの設定
-            pVtx[0].rhw = 1.0f;
-            pVtx[1].rhw = 1.0f;
-            pVtx[2].rhw = 1.0f;
-            pVtx[3].rhw = 1.0f;
+        //頂点カラー
+        pVtx[0].col = D3DCOLOR_RGBA(255, 255, 255, m_nAlphaCnt);
+        pVtx[1].col = D3DCOLOR_RGBA(255, 255, 255, m_nAlphaCnt);
+        pVtx[2].col = D3DCOLOR_RGBA(255, 255, 255, m_nAlphaCnt);
+        pVtx[3].col = D3DCOLOR_RGBA(255, 255, 255, m_nAlphaCnt);
 
-            //頂点カラー
-            pVtx[0].col = D3DCOLOR_RGBA(255, 255, 255, 255);
-            pVtx[1].col = D3DCOLOR_RGBA(255, 255, 255, 255);
-            pVtx[2].col = D3DCOLOR_RGBA(255, 255, 255, 255);
-            pVtx[3].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+        //テクスチャ座標の設定
+        pVtx[0].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG], m_aPosTexV[nCntBG]);
+        pVtx[1].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG] + 1.0f, m_aPosTexV[nCntBG]);
+        pVtx[2].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG], m_aPosTexV[nCntBG] + 1.0f);
+        pVtx[3].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG] + 1.0f, m_aPosTexV[nCntBG] + 1.0f);
 
-            //テクスチャ座標の設定
-            pVtx[0].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG], m_aPosTexV[nCntBG]);
-            pVtx[1].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG] + 1.0f, m_aPosTexV[nCntBG]);
-            pVtx[2].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG], m_aPosTexV[nCntBG] + 1.0f);
-            pVtx[3].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG] + 1.0f, m_aPosTexV[nCntBG] + 1.0f);
-
-            pVtx += 4;
-
-
+        pVtx += 4;
     }
 
     //頂点バッファアンロック
     m_pVtxBuff->Unlock();
+
+    // アルファブレンドの設定
+    pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+    pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
     CScene::UpdateSwitch(0);
 
@@ -163,19 +158,12 @@ void CStartCallUI::Update()
         m_bUse[1] = true;
         m_bUse[2] = true;
 
-
         if (m_nPos[2].x >= 600.0f && m_nPos[2].x < 800.0f)
         {
             m_nPos[2].x -= 10.0f;
             CScene::UpdateSwitch(1);
             m_bStartComplete = true;
         }
-
-        //if (m_nPos[1].x == 400.0f)
-        //{
-        //    CScene::UpdateSwitch(1);
-        //}
-
 
         if (m_nPos[2].x < -600.0f)
         {
@@ -221,18 +209,15 @@ void CStartCallUI::Update()
         m_nAlphaCnt++;
     }
 
-    if (m_nAlphaCnt == 205)
+    if (m_nAlphaCnt <= 205)
     {
         m_bAlphaSwitch = true;
     }
 
-    if (m_nAlphaCnt == 255)
+    if (m_nAlphaCnt >= 255)
     {
         m_bAlphaSwitch = false;
     }
-
-
-
 
     //フェードの状態を取得
     int nFadeState = CFade::GetFadeState();
@@ -242,7 +227,6 @@ void CStartCallUI::Update()
     {
         CStartCallUI::Uninit();
     }
-
 }
 
 void CStartCallUI::SetAlpha(int nAlpha)
@@ -256,40 +240,18 @@ void CStartCallUI::SetAlpha(int nAlpha)
     for (nCntBG = 0; nCntBG < NUM_ICON; nCntBG++)
     {
 
-        //if (nCntBG == 0)
-        //{
-        //    m_aPosTexV[nCntBG] -= 0.00f;
-        //}
-        //else if (nCntBG == 1)
-        //{
-        //    m_aPosTexV[nCntBG] -= 0.003f;
-        //}
-        //else if (nCntBG == 2)
-        //{
-        //    m_aPosTexV[nCntBG] -= 0.0020f;
-        //}
-
-        ////テクスチャ座標の設定
-        //pVtx[0].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG], m_aPosTexV[nCntBG]);
-        //pVtx[1].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG] + 1.0f, m_aPosTexV[nCntBG]);
-        //pVtx[2].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG], m_aPosTexV[nCntBG] + 1.0f);
-        //pVtx[3].tex = D3DXVECTOR2(m_aPosTexXV[nCntBG] + 1.0f, m_aPosTexV[nCntBG] + 1.0f);
-
         pVtx[0].pos = D3DXVECTOR3((m_nPos[nCntBG].x - m_nSize[nCntBG].x), m_nPos[nCntBG].y, 0.0f);
         pVtx[1].pos = D3DXVECTOR3((m_nPos[nCntBG].x + m_nSize[nCntBG].x), m_nPos[nCntBG].y, 0.0f);
         pVtx[2].pos = D3DXVECTOR3((m_nPos[nCntBG].x - m_nSize[nCntBG].x), m_nPos[nCntBG].y + m_nSize[nCntBG].y, 0.0f);
         pVtx[3].pos = D3DXVECTOR3((m_nPos[nCntBG].x + m_nSize[nCntBG].x), m_nPos[nCntBG].y + m_nSize[nCntBG].y, 0.0f);
 
-        pVtx[0].col = D3DCOLOR_RGBA(m_nAlphaCnt, m_nAlphaCnt, m_nAlphaCnt, m_nAlphaCnt);
-        pVtx[1].col = D3DCOLOR_RGBA(m_nAlphaCnt, m_nAlphaCnt, m_nAlphaCnt, m_nAlphaCnt);
-        pVtx[2].col = D3DCOLOR_RGBA(m_nAlphaCnt, m_nAlphaCnt, m_nAlphaCnt, m_nAlphaCnt);
-        pVtx[3].col = D3DCOLOR_RGBA(m_nAlphaCnt, m_nAlphaCnt, m_nAlphaCnt, m_nAlphaCnt);
-
-
+        pVtx[0].col = D3DCOLOR_RGBA(255, 255, 255, nAlpha);
+        pVtx[1].col = D3DCOLOR_RGBA(255, 255, 255, nAlpha);
+        pVtx[2].col = D3DCOLOR_RGBA(255, 255, 255, nAlpha);
+        pVtx[3].col = D3DCOLOR_RGBA(255, 255, 255, nAlpha);
 
         pVtx += 4;
     }
-
 
     //頂点バッファをアンロックする
     m_pVtxBuff->Unlock();

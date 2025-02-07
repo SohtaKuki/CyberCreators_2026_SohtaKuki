@@ -431,9 +431,9 @@ void C3denemyair::Draw()
 //======================
 // “G‚Ìƒ_ƒ[ƒWˆ—
 //======================
-void C3denemyair::EnemyDamage()
+void C3denemyair::EnemyDamage(int nDamage)
 {
-    m_nLife--;
+    m_nLife -= nDamage;
     CManager::GetSound()->PlaySound(CSound::SOUND_LABEL_SE_ENEMY_DAMAGE);
     C3dexplosion::Create(CObject3D::GetPos(), D3DXVECTOR3(35.0f, 35.0f, 0.0f), m_rot, 0);
     m_bAirEnemyDMGState = true;

@@ -58,6 +58,9 @@ HRESULT CScore::Init()
 		return E_FAIL;
 	}
 
+#if _DEBUG
+	m_bUse[NUM_SCORE] = true;
+#endif
 
 	VERTEX_2D* pVtx;
 
@@ -108,15 +111,27 @@ void CScore::Uninit()
 
 	m_nHPBonusScore += C3dplayer::GetPlayerLife() * 100; //プレイヤーHPボーナスのスコア加算差分もここで保存しとく
 
-	if (CTimer::GetTimer() <= 65)
+	if (C3dgoalobj::GetStageNum() == 1 && CTimer::GetTimer() <= 40)
 	{
 		AddScore(14000); //タイムボーナスのスコア加算
 		m_nTimeBonusScore += 14000;
 	}
 
-	if (CTimer::GetTimer() >= 65)
+	if (C3dgoalobj::GetStageNum() == 1 && CTimer::GetTimer() >= 40)
 	{
 		AddScore(5000); //タイムボーナスのスコア加算
+		m_nTimeBonusScore += 5000;
+	}
+
+	if (C3dgoalobj::GetStageNum() == 2 && CTimer::GetTimer() <= 105)
+	{
+		AddScore(18000); //タイムボーナスのスコア加算
+		m_nTimeBonusScore += 14000;
+	}
+
+	if (C3dgoalobj::GetStageNum() == 2 && CTimer::GetTimer() >= 105)
+	{
+		AddScore(6000); //タイムボーナスのスコア加算
 		m_nTimeBonusScore += 5000;
 	}
 

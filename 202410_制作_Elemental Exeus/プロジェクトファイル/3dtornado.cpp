@@ -161,13 +161,13 @@ void C3dtornado::Update()
         // プレイヤーが右を向いている時
         if (m_bMoveSwitch == true)
         {
-            m_nMove.x += 1.0f;
+            m_nMove.x += 1.8f;
         }
 
         // プレイヤーが左を向いている時
         if (m_bMoveSwitchL == true)
         {
-            m_nMove.x -= 1.0f;
+            m_nMove.x -= 1.8f;
         }
 
         if (C3dtornado::m_bDisplay == true) // 表示中のみ処理をする
@@ -251,7 +251,7 @@ void C3dtornado::Update()
                         && Pos.z <= EnemyPos.z + 10)
                     {
                         C3dhiteffect::Create(D3DXVECTOR3(CObject3D::GetPos().x, CObject3D::GetPos().y + 35.0f, CObject3D::GetPos().z), D3DXVECTOR3(90.0f, 90.0f, 0.0f), m_rot);
-                        p3denemyair->EnemyDamage();
+                        p3denemyair->EnemyDamage(2);
                         Uninit();
                         return;
                     }

@@ -13,7 +13,7 @@
 #include "object2D.h"
 #include "player.h"
 
-static const int NUM_SCORE = 8;
+static const int NUM_SCORE = 6;
 static const int TEX_SCORE_INTERVAL = 24;
 
 //アイテムオブジェクトクラス

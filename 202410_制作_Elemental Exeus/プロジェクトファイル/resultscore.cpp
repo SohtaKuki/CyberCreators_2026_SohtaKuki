@@ -204,7 +204,7 @@ CResultScore* CResultScore::Create(D3DXVECTOR3 pos,D3DXVECTOR3 size)
 	LPDIRECT3DTEXTURE9 pTexture;
 
 	//テクスチャの読み込む
-	D3DXCreateTextureFromFile(CManager::GetRenderer()->GetDevice(), "data\\TEXTURE\\SCORE_NUMBER_type3.png", &pTexture);
+	D3DXCreateTextureFromFile(CManager::GetRenderer()->GetDevice(), "data\\TEXTURE\\SCORE_NUMBER_type2.png", &pTexture);
 
 	pResultScore->BindTexture(pTexture);
 
